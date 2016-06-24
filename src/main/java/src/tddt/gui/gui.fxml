@@ -1,0 +1,60 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.SplitPane?>
+
+
+<GridPane fx:controller="tddt.gui.Controller"
+          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="0" vgap="0">
+    <MenuBar GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="2">
+        <Menu text="File">
+            <MenuItem>
+
+            </MenuItem>
+        </Menu>
+        <Menu text="Edit" />
+        <Menu text="View">
+            <MenuItem text="Show Terminal"/>
+        </Menu>
+        <Menu>
+
+        </Menu>
+    </MenuBar>
+
+    <SplitPane GridPane.rowIndex="1" GridPane.columnIndex="0" orientation="VERTICAL">
+    <SplitPane orientation="HORIZONTAL">
+    <TitledPane text="Class-Editor"
+                 collapsible="false">
+         <TextArea  fx:id="classedit"
+                    GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" prefHeight="100000" prefWidth="100000"
+        />
+    </TitledPane>
+    <TitledPane text="Test-Editor"
+                 collapsible="false">
+          <TextArea  fx:id="testedit"
+                     GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" prefHeight="100000" prefWidth="100000"
+
+
+          />
+    </TitledPane>
+    </SplitPane>
+        <TitledPane text="Terminal">
+            <GridPane vgap="0" hgap="0">
+                <padding><Insets left="0" right="0" top="0" bottom="0"/> </padding>
+             <GridPane fx:id="terminalpane" GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS">
+
+
+                        <TextArea  fx:id="console" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" GridPane.columnIndex="0" GridPane.rowIndex="0" minHeight="200" prefWidth="1000"/>
+
+
+
+
+             </GridPane>
+            </GridPane>
+         </TitledPane>
+    </SplitPane>
+</GridPane>
