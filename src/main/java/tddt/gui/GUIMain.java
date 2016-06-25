@@ -1,4 +1,4 @@
-package tddt.gui;
+package main.java.tddt.gui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +13,7 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.layout.*;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import main.java.tddt.gui.Controller;
 
 public class GUIMain extends Application {
 

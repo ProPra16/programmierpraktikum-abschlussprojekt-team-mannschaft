@@ -14,7 +14,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 
-<GridPane fx:controller="tddt.gui.Controller"
+<GridPane fx:controller="main.java.tddt.gui.Controller"
           xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="0" vgap="0">
     <MenuBar>
         <Menu text="File">

@@ -1,4 +1,4 @@
-package tddt.gui;
+package main.java.tddt.gui;
 
 
 import javafx.scene.layout.GridPane;

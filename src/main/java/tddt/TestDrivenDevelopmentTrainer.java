@@ -1,6 +1,6 @@
-package tddt;
+package main.java.tddt;
 
-import tddt.gui.GUIMain;
+import main.java.tddt.gui.GUIMain;
 
 /**
  * Created by Roter Emu on 23.06.2016.
