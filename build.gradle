@@ -1,13 +1,16 @@
 apply plugin: 'java'
+apply plugin: 'application'
 apply plugin: 'idea'
 apply plugin: 'maven'
 
 
-group 'de.hhu.stups'
-version '1.0.0'
 
 repositories{
     mavenCentral()
 }
 
-dependencies { compile 'junit:junit:4.12' }
+dependencies {
+    compile 'de.hhu.stups:virtual-kata-lib:1.0.1'
+    compile 'org.diirt.javafx:javafx-all:3.0.0'
+    testCompile "junit:junit:4.12"
+}
