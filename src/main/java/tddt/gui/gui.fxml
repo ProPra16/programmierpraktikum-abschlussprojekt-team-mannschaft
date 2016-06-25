@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.SplitPane?>
+
+
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+
+<GridPane fx:controller="tddt.gui.Controller"
+          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="0" vgap="0">
+    <MenuBar>
+        <Menu text="File">
+            <MenuItem>
+
+            </MenuItem>
+        </Menu>
+        <Menu text="Edit" />
+        <Menu text="View">
+            <MenuItem text="Show Terminal"/>
+        </Menu>
+        <Menu>
+
+        </Menu>
+    </MenuBar>
+
+    <SplitPane GridPane.rowIndex="1" orientation="VERTICAL">
+          <SplitPane orientation="HORIZONTAL">
+                 <TitledPane text="Class-Editor" collapsible="false">
+                         <TextArea fx:id="classedit" prefHeight="100000" prefWidth="100000"/>
+                 </TitledPane>
+                 <TitledPane text="Test-Editor" collapsible="false">
+                         <TextArea fx:id="testedit" prefHeight="100000" prefWidth="100000"/>
+                 </TitledPane>
+          </SplitPane>
+
+          <TitledPane text="Terminal">
+                 <SplitPane orientation="HORIZONTAL" >
+                        <ScrollPane >
+                              <Label  fx:id="console" />
+                        </ScrollPane>
+                        <TabPane  minHeight="200" >
+                              <Tab text="Exercise Description" closable="false">
+                                    <ScrollPane>
+                                        <Label text="Dies ist ein Test langer test aöljsdöfkjaöwlekjfjdsaf,a,wns dfkkawös fljawöslfja ödsdkjfö lasddjf öqlweknfölalksdjjöflqkkjsaödfllkjaösdlkf" />
+                                    </ScrollPane>
+                              </Tab>
+                              <Tab text="Tracking Graph" closable="false">
+                                    <ScrollPane>
+                                        <Label text="Dies ist ein zweiter Test" />
+                                    </ScrollPane>
+                              </Tab>
+                        </TabPane>
+                  </SplitPane>
+          </TitledPane>
+
+    </SplitPane>
+</GridPane>
