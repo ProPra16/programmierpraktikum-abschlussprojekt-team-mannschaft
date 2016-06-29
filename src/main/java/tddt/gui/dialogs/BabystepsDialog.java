@@ -19,14 +19,14 @@ public class BabystepsDialog {
         Stage stage = new Stage(StageStyle.UNDECORATED);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initOwner(main);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/babysteps.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../../../../../resources/babysteps.fxml"));
         Parent root = loader.load();
         BabystepsController controller = (BabystepsController) loader.getController();
         controller.setStage(stage);
         Scene scene = new Scene(root, 300, 300);
-        String stylesheet = getClass().getResource("../resources/babysteps.css").toExternalForm();
+        String stylesheet = getClass().getResource("../../../../../resources/babysteps.css").toExternalForm();
         scene.getStylesheets().add(stylesheet);
-        stage.getIcons().add(new Image(BabystepsDialog.class.getResourceAsStream("../resources/graphics/tddt.png")));
+        stage.getIcons().add(new Image(BabystepsDialog.class.getResourceAsStream("../../../../../resources/graphics/tddt.png")));
         stage.setTitle("Babysteps Configuration");
         stage.setScene(scene);
         stage.showAndWait();
