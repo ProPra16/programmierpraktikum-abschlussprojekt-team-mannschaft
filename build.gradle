@@ -2,11 +2,26 @@
 apply plugin: 'java'
 apply plugin: 'application'
 
+
+mainClassName = "main.java.tddt.TestDrivenDevelopmentTrainer"
+
+
 repositories {
     mavenCentral()
 }
 
+
 mainClassName = "main.java.tddt.TestDrivenDevelopmentTrainer"
+
+sourceSets {
+    main {
+        resources {
+        	srcDirs = ["src/main/java/tddt/gui"]
+        	includes = ["**/*"]
+        }	    
+    }
+}
+
 dependencies {
     compile 'de.hhu.stups:virtual-kata-lib:1.0.1'
     runtime 'de.hhu.stups:virtual-kata-lib:1.0.1'
