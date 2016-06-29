@@ -5,7 +5,7 @@ import java.util.List;
 
 public class LogList {
 
-    private List<Log> loglist = new ArrayList<>();
+    private List<Log> loglist = new ArrayList<Log>();
     private String projektPath ;
 
 
@@ -20,14 +20,12 @@ public class LogList {
     public void delete(){
 
         for ( int i = 0; i < loglist.size(); i++ ) {
-
-                loglist.remove(o)   ;
-        }
+            loglist.remove(i)   ;
         }
 
     }
     public Log getLog(int i){
-        return Log(int phase ,time,classText,testText,compileMessage)(i); //Log-Objekt(i);
+        return loglist.get(i); //Log-Objekt(i);
     }
 
 }
