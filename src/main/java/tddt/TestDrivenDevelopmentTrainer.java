@@ -7,6 +7,6 @@ import main.java.tddt.gui.GUIMain;
  */
 public class TestDrivenDevelopmentTrainer {
     public static void main(String[] args){
-        GUIMain.launchApp(args);
+        GUIMain.launchGUI(args);
     }
 }
