@@ -34,10 +34,16 @@ public class Coordinator {
             Collection<CompileError> errors = compresult.getCompilerErrorsForCompilationUnit(classcompile);
             for(CompileError e : errors)result += e.getMessage();
         }
+        //Refactoring erfolgreich, man kann dann wieder zu RED wechseln
+        if(phase == 3 && !compresult.hasCompileErrors() && (testresult.getNumberOfFailedTests() == 0)){
+            result = "Refactoring successful, at least Tests are running without failures again";
+            phase = 4; //in dieser Phase ist der Wechsel zu Red wieder möglich
+        }
         //phase RED, also phase = 1
-        if(phase == 1 && compresult.hasCompileErrors() ){
+        if(phase == 1 && compresult.hasCompileErrors() ){//Bedingung auch erfüllt, wenn es Code gibt ,der nicht kompiliert
             Collection<CompileError> errors = compresult.getCompilerErrorsForCompilationUnit(testcompile);
             for(CompileError e : errors)result += e.getMessage();
+            phase = 2;
         }
         else if(phase == 1  && (testresult.getNumberOfFailedTests() > 0)){
             Collection<TestFailure> failures = testresult.getTestFailures();
@@ -58,6 +64,12 @@ public class Coordinator {
             phase = 3; //Alle Tests ans Laufen bekommen, die Bedingung für das Refacotring erfüllt
         }
         return result;
+    }
+
+    public void setPhase(int i){//zum aktiven Phasenwechsel, e.g. zurück zu RED oder bei Refactor
+        if(i > 0 && i < 4){  // nur phasen 1-3 zu wählen
+            this.phase = i;
+        }
     }
 
 }
