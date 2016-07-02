@@ -30,6 +30,10 @@ public class Controller {
     private Stage stage;
     private Coordinator c;
 
+    public Controller(){
+        this.c = new Coordinator("Fak", "FakTest");
+    }
+
     public void selectExercise() {
     }
 
@@ -37,7 +41,6 @@ public class Controller {
     }
 
     public void runTest() {
-        this.c = new Coordinator("Fak", "FakTest");
         this.consolepane.setText(this.c.compile(this.classpane.getText(), this.testpane.getText()));
     }
 
@@ -95,7 +98,7 @@ public class Controller {
 
     public void nextPhase() {
         this.c.nextPhase(this.classpane.getText(), this.testpane.getText());
-        this.setPhase(c.phase);
+        this.setPhase(this.c.phase);
     }
 
     public void exerciseOutput(String title, String desc) {
