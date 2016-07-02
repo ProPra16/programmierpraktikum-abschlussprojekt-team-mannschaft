@@ -39,7 +39,7 @@ public class TestingCoordinator {
     public void vonphase1zu2Test(){ //testet, ob die phasen richtig gewechselt werden, hier von  ohase 1 zu 2
         Coordinator coor = new Coordinator("Bar", "BarTest");
         //für die Bedingung muss es fehlschlagende Tests geben
-        String testcompresults = coor.compile(klassencontentfalsch, testcontent);
+        coor.nextPhase(klassencontentfalsch, testcontent);
         assertEquals(2, coor.phase); //sollte danach dann 2 sein
     }
 
@@ -48,29 +48,29 @@ public class TestingCoordinator {
         Coordinator coor = new Coordinator("Bar", "BarTest");
         //für die Bedingung muss es fehlschlagende Tests geben
         String methodfortestnotdefined = "public class Bar{}";
-        String testcompresults = coor.compile(methodfortestnotdefined, testcontent);
+        coor.nextPhase(methodfortestnotdefined, testcontent);
         assertEquals(2, coor.phase); //sollte danach dann 2 sein
     }
 
     @Test
     public void vonphase2zu3Test(){ //testet ob bei erfolgreichen Tests in phase 2 zu phase 3 übergegangen wird
         Coordinator coortest = new Coordinator("Bar", "BarTest");
-        String failetestresults = coortest.compile(klassencontentfalsch, testcontent);
+        coortest.nextPhase(klassencontentfalsch, testcontent);
         //phase sollte hiernach 2 sein
-        String testcompresults = coortest.compile(klassencontent, testcontent);
+        coortest.nextPhase(klassencontent, testcontent);
         assertEquals(3, coortest.phase); //phase sollte danach dann 3 sein
     }
 
     @Test
     public void Refactoringsuccess(){
         Coordinator coortest = new Coordinator("Bar", "BarTest");
-        String failtestresults = coortest.compile(klassencontentfalsch, testcontent);
+        coortest.nextPhase(klassencontentfalsch, testcontent);
         //phase sollte hiernach 2 sein
-        String testcompresults = coortest.compile(klassencontent, testcontent);
+        coortest.nextPhase(klassencontent, testcontent);
         //phase sollte danach dann 3 sein
         //hierbei refactoring ohne aenderungen betrachtet, da dies keinen Unterschied macht, diese Phase soll ja frei gewählt werden können
-        String postrefactorresults = coortest.compile(klassencontent, testcontent);
-        //phase sollte hiernach 4 sein für Wechsel zurück zu RED
-        assertEquals(4, coortest.phase);
+        coortest.nextPhase(klassencontent, testcontent);
+        //phase sollte hiernach wieder 1 sein also RED für den Kreislauf
+        assertEquals(1, coortest.phase);
     }
 }
