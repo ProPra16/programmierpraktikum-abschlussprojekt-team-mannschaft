@@ -32,7 +32,7 @@ public class Controller {
     }
 
     public void runTest() {
-        this.c = new Coordinator("Fak", "FakTest");
+        this.c = new Coordinator("Fak", "FakTest", this);
         this.consolepane.setText(this.c.compile(this.classpane.getText(), this.testpane.getText()));
     }
 
