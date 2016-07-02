@@ -32,7 +32,7 @@ public class Controller {
     }
 
     public void runTest() {
-        this.c = new Coordinator("Fak", "FakTest", this);
+        this.c = new Coordinator("Fak", "FakTest");
         this.consolepane.setText(this.c.compile(this.classpane.getText(), this.testpane.getText()));
     }
 
@@ -89,13 +89,14 @@ public class Controller {
 
     public void nextPhase() {
         this.c.nextPhase(this.classpane.getText(), this.testpane.getText());
+        this.setPhase(c.phase);
     }
 
     public void exerciseOutput(String title, String desc) {
         //this.c.createExercise(title, desc);
     }
 
-    public void setPhase(int i){
+    private void setPhase(int i){
         switch(i){
             case 1:
                 phaselabel.setText("RED");
