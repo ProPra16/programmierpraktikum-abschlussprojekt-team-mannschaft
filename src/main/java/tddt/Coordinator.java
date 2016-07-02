@@ -1,6 +1,5 @@
 package main.java.tddt;
 
-import main.java.tddt.gui.Controller;
 import vk.core.api.*;
 import vk.core.api.CompilerResult;
 import vk.core.api.TestResult;
@@ -15,13 +14,11 @@ import java.util.Collection;
 public class Coordinator {
     private String classname; //namen bei einem Coordinator, der für eine Session ist, festgelegt
     private String testname;
-    private int phase; //wird 1,2 oder 3 also red, green oder refactor
-    private Controller controller;
+    public int phase; //wird 1,2 oder 3 also red, green oder refactor
 
-    public Coordinator(String classname,  String testname, Controller eincontroller){
+    public Coordinator(String classname,  String testname){
         this.classname = classname;
         this.testname = testname;
-        this.controller = eincontroller;
         phase = 1; //phase 1, also red bzw. tests schreiben
     }
     public String compile(String classcontent, String testcontent){
@@ -73,7 +70,6 @@ public class Coordinator {
             phase = 3; //Alle Tests ans Laufen bekommen, die Bedingung für das Refacotring erfüllt
         }
 
-        controller.setPhase(phase);
     }
 
     public void setPhase(int i){//zum aktiven Phasenwechsel, e.g. zurück zu RED oder bei Refactor

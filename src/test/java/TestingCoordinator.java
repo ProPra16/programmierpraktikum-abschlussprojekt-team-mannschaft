@@ -1,6 +1,8 @@
 package test.java;
 import main.java.tddt.Coordinator;
 import static org.junit.Assert.*;
+
+import main.java.tddt.gui.Controller;
 import org.junit.*;
 /**
  * Created by renato on 30.06.16.
