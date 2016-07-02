@@ -14,8 +14,8 @@ repositories {
 sourceSets {
     main {
         resources {
-            srcDirs = ["src/main/java/tddt/gui"]
-            includes = ["**/*"]
+            srcDirs = ["src"]
+            includes = ["resources/*", "resources/graphics/*"]
         }
     }
 }
