@@ -8,5 +8,5 @@ packages:
 install: /bin/true
 script:
 - echo "App Build"
-- gradle clean build
+- gradle build
 - echo "Done"
