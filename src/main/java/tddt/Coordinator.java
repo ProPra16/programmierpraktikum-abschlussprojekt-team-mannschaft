@@ -1,5 +1,6 @@
 package main.java.tddt;
 
+import main.java.tddt.gui.Controller;
 import vk.core.api.*;
 import vk.core.api.CompilerResult;
 import vk.core.api.TestResult;
@@ -14,11 +15,13 @@ import java.util.Collection;
 public class Coordinator {
     private String classname; //namen bei einem Coordinator, der für eine Session ist, festgelegt
     private String testname;
-    public int phase; //wird 1,2 oder 3 also red, green oder refactor
+    private int phase; //wird 1,2 oder 3 also red, green oder refactor
+    private Controller controller;
 
-    public Coordinator(String classname,  String testname){
+    public Coordinator(String classname,  String testname, Controller eincontroller){
         this.classname = classname;
         this.testname = testname;
+        this.controller = eincontroller;
         phase = 1; //phase 1, also red bzw. tests schreiben
     }
     public String compile(String classcontent, String testcontent){
@@ -33,13 +36,13 @@ public class Coordinator {
             Collection<CompileError> errors = compresult.getCompilerErrorsForCompilationUnit(classcompile);
             for(CompileError e : errors)result += e.getMessage() + "\n";
         }
-        //kann nicht kompiliert werden, so können die Tests auch nicht ausgeführt werden
-        else if((testresult.getNumberOfFailedTests() > 0)){
+        //kann es nicht kompiliert werden, so können die Tests auch nicht ausgeführt werden
+        else if(testresult.getNumberOfFailedTests() > 0){
             Collection<TestFailure> failures = testresult.getTestFailures();
             for(TestFailure f : failures)result += f.getMessage() + "\n";
         }
-        else if((testresult.getNumberOfFailedTests() == 0)){
-            result = "All "+Integer.toString(testresult.getNumberOfSuccessfulTests())+ "executed successfully";
+        else { //ansonsten sind alle Tests erfolgreich
+            result = "All Tests successful. "+"Number of executed tests: "+Integer.toString(testresult.getNumberOfSuccessfulTests());
         }
             //hier soll ein log zur loglist Hinzufügung erstellt werden
 
@@ -69,6 +72,8 @@ public class Coordinator {
         else if(phase == 2 && (testresult.getNumberOfFailedTests() == 0)){
             phase = 3; //Alle Tests ans Laufen bekommen, die Bedingung für das Refacotring erfüllt
         }
+
+        controller.setPhase(phase);
     }
 
     public void setPhase(int i){//zum aktiven Phasenwechsel, e.g. zurück zu RED oder bei Refactor
