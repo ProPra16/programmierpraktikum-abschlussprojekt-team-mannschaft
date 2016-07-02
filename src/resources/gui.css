@@ -74,7 +74,7 @@
 }
 
 .titled-pane .content{
-    -fx-background-color: linear-gradient(#777777 0%, #999999 10%, #aaaaaa 80%);
+    -fx-background-color: linear-gradient(#999999 0%, #aaaaaa 10%, #bbbbbb 80%);
 }
 
 .titled-pane{
@@ -89,21 +89,17 @@
     -fx-background-radius: 0px;
 }
 
-#testpane{
-    -fx-text-fill: white;
-}
-
 #hbox{
     -fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #333333, #888888);
 }
 
 .split-pane .split-pane-divider {
     -fx-padding: 0 0.03em 0 0.03em;
-    -fx-background-color: linear-gradient(#555555 0%, #aaaaaa 10%, #bbbbbb 80%);
+    -fx-background-color: linear-gradient(#555555 0%, #777777 10%, #999999 80%);
 }
 
 .scroll-pane .viewport{
-    -fx-background-color: linear-gradient(#777777 0%, #999999 10%, #aaaaaa 80%);
+    -fx-background-color: linear-gradient(#999999 0%, #aaaaaa 10%, #bbbbbb 80%);
 }
 
 .scroll-pane .scroll-bar{

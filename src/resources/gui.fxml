@@ -21,20 +21,18 @@
             <Menu text="Project">
                 <MenuItem text="Select Exercise" onAction="#selectExercise"/>
                 <MenuItem text="Create Exercise" onAction="#createExercise"/>
-                <MenuItem text="Open Project" onAction="#openExercise"/>
+                <MenuItem text="Open Project" onAction="#openProject"/>
                 <MenuItem text="Save Project" onAction="#saveProject"/>
                 <MenuItem text="Run" onAction="#runTest"/>
             </Menu>
-            <Menu text="Edit">
-                <MenuItem text="Undo" onAction="#undo"/>
-                <MenuItem text="Return to last Phase" onAction="#goBack"/>
-            </Menu>
             <Menu text="Tracking">
+                <MenuItem text="Go back to last Log-Point" onAction="#undo"/>
                 <MenuItem text="Show Log" onAction="#showLog"/>
                 <MenuItem text="Delete Log" onAction="#deleteLog"/>
             </Menu>
         </MenuBar>
         <Button text="Babysteps" onAction="#babysteps"/>
+        <Button text="Last Phase" onAction="#lastPhase"/>
         <Button text="Next Phase" onAction="#nextPhase"/>
         <Button fx:id="runbutton" onAction="#runTest" text="   "/>
         <Button fx:id="terminalbutton" onAction="#handleTerminal" text="   "/>

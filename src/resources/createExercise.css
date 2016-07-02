@@ -1,4 +1,4 @@
-#mainpane{
+.root{
     -fx-padding: 25;
     -fx-background-color: linear-gradient(#888888 0%, #777777 50%, #666666 100%);
 }
@@ -6,24 +6,6 @@
 .label{
     -fx-text-fill: #dddddd;
     -fx-font-size: 10pt;
-    -fx-font-weight: bold;
-}
-
-#inactivelabel{
-    -fx-text-fill: #444444;
-    -fx-font-size: 10pt;
-    -fx-font-weight: bold;
-}
-
-.spinner .text-field{
-    -fx-background-color: #dddddd;
-    -fx-text-fill: #333333;
-    -fx-font-weight: bold;
-}
-
-#inactivespinner{
-    -fx-background-color: #555555;
-    -fx-text-fill: #333333;
     -fx-font-weight: bold;
 }
 
@@ -43,7 +25,12 @@
     -fx-text-fill: white;
 }
 
-#inactivebutton{
-    -fx-background-color: linear-gradient(#333333 0%, #444444 50%, #555555 100%);
-    -fx-text-fill: #777777;
+.text-area{
+    -fx-background-color: #bbbbbb;
+    -fx-font-weight: bold;
+    -fx-font-size: 10pt;
+}
+
+#alertlabel{
+    -fx-text-fill: #ff0000;
 }
