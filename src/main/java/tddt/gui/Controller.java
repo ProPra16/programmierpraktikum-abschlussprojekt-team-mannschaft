@@ -6,7 +6,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+import main.java.tddt.Coordinator;
 import main.java.tddt.gui.dialogs.BabystepsDialog;
+import main.java.tddt.gui.dialogs.CreateExerciseDialog;
 
 public class Controller {
 
@@ -19,43 +21,59 @@ public class Controller {
     public Label descriptionpane;
     public Label graphpane;
     public SplitPane mainSplitPane;
+
     private Stage stage;
+    private Coordinator c;
 
-    public void selectExercise(ActionEvent actionEvent) {
+    public void selectExercise() {
     }
 
-    public void openExercise(ActionEvent actionEvent) {
+    public void openProject() {
     }
 
-    public void runTest(ActionEvent actionEvent) {
+    public void runTest() {
+        Coordinator c = new Coordinator("Fak", "FakTest");
+        this.consolepane.setText(this.c.compile(this.classpane.getText(), this.testpane.getText()));
     }
 
-    public void saveProject(ActionEvent actionEvent) {
+    public void saveProject() {
+        //this.c.save(this.classpane.getText(), this.testpane.getText());
     }
 
-    public void babysteps(ActionEvent actionEvent) {
+    public void babysteps() {
         try {
-            BabystepsDialog dialog = new BabystepsDialog(stage);
+            new BabystepsDialog(stage, true, 4.5, this); // coordinator muss init daten liefern
+        }
+        catch(Exception e){}
+    }
+
+    public void babystepsOutput(boolean activated, double minutes){
+        // this.c.setBabystepsActivated(activated, minutes);
+    }
+
+    public void createExercise() {
+        try{
+            new CreateExerciseDialog(stage, this);
         }
         catch(Exception e){e.printStackTrace();}
     }
 
-    public void createExercise(ActionEvent actionEvent) {
+    public void showLog() {
     }
 
-    public void showLog(ActionEvent actionEvent) {
+    public void deleteLog() {
+        //this.c.deleteLog();
     }
 
-    public void deleteLog(ActionEvent actionEvent) {
+    public void lastPhase() {
+        //this.c.setPhase(c.phase -1);
     }
 
-    public void goBack(ActionEvent actionEvent) {
+    public void undo() {
+        //this.c.undo();
     }
 
-    public void undo(ActionEvent actionEvent) {
-    }
-
-    public void handleTerminal(ActionEvent actionEvent) {
+    public void handleTerminal() {
         double[] pos = this.mainSplitPane.getDividerPositions();
         if(pos[0] < 0.99){
             this.mainSplitPane.setDividerPosition(0,1.0);
@@ -65,20 +83,15 @@ public class Controller {
         }
     }
 
-    public void setStage(Stage stage) {
+    public void init(Stage stage) {
         this.stage = stage;
     }
 
-    public void nextPhase(ActionEvent actionEvent) {
+    public void nextPhase() {
+        //this.c.nextPhase();
     }
 
-    public void close(ActionEvent actionEvent) {
-        stage.close();
-    }
-
-    public void maximize(ActionEvent actionEvent) {
-    }
-
-    public void minimize(ActionEvent actionEvent) {
+    public void exerciseOutput(String title, String desc) {
+        //this.c.createExercise(title, desc);
     }
 }
