@@ -39,7 +39,7 @@
         <Label prefWidth="5"/>
         <Label id="phase" text="Phase: " />
         <Label prefWidth="5"/>
-        <Label fx:id="phaselabel" id="red" text="RED" prefWidth="90"/>
+        <Label fx:id="phaselabel" id="red" text="RED" prefWidth="110"/>
         <Label prefWidth="10"/>
         <Label fx:id="clockpic" prefHeight="20" prefWidth="20"/>
         <Label prefWidth="5"/>
@@ -47,10 +47,10 @@
     </HBox>
     <SplitPane fx:id="mainSplitPane" dividerPositions="1.0" orientation="VERTICAL" GridPane.rowIndex="1">
         <SplitPane orientation="HORIZONTAL" minHeight="0">
-            <TitledPane text="Class-Editor" collapsible="false" minWidth="0">
+            <TitledPane fx:id="classtitled" text="Class-Editor" collapsible="false" minWidth="0">
                 <TextArea fx:id="classpane" prefHeight="100000" prefWidth="100000"/>
             </TitledPane>
-            <TitledPane text="Test-Editor" collapsible="false" minWidth="0">
+            <TitledPane fx:id="testtitled" text="Test-Editor" collapsible="false" minWidth="0">
                 <TextArea fx:id="testpane" prefHeight="100000" prefWidth="100000"/>
             </TitledPane>
         </SplitPane>

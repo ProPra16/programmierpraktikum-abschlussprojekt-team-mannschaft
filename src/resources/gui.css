@@ -33,7 +33,7 @@
 }
 
 .text-area .content{
-    -fx-background-color: linear-gradient(#777777 0%, #999999 10%, #aaaaaa 80%);
+    -fx-background-color: linear-gradient(#999999 0%, #bbbbbb 10%, #cccccc 80%);
     -fx-padding: 10px;
 }
 
@@ -196,6 +196,8 @@
     -fx-alignment: center;
 }
 
-#inactive{
-    -fx-background-color: linear-gradient(#666666 0%, #777777 10%, #888888 80%);
+.text-area:disabled{
+    -fx-background-color: linear-gradient(#777777 0%, #888888 10%, #999999 80%);
+    -fx-opacity: 1.0;
+    -fx-text-fill: black;
 }
