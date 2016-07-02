@@ -2,9 +2,11 @@ package main.java.tddt.gui;
 
 
 import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TitledPane;
 import javafx.stage.Stage;
 import main.java.tddt.Coordinator;
 import main.java.tddt.gui.dialogs.BabystepsDialog;
@@ -21,6 +23,9 @@ public class Controller {
     public Label descriptionpane;
     public Label graphpane;
     public SplitPane mainSplitPane;
+    public TitledPane testtitled;
+    public TitledPane classtitled;
+    private int phase;
 
     private Stage stage;
     private Coordinator c;
@@ -85,6 +90,7 @@ public class Controller {
 
     public void init(Stage stage) {
         this.stage = stage;
+        this.setPhase(1);
     }
 
     public void nextPhase() {
@@ -97,24 +103,25 @@ public class Controller {
     }
 
     private void setPhase(int i){
+        this.phase = i;
         switch(i){
             case 1:
                 phaselabel.setText("RED");
                 phaselabel.setId("red");
-                classpane.setId("inactive");
-                testpane.setId(null);
+                classpane.setDisable(true);
+                testpane.setDisable(false);
                 break;
             case 2:
                 phaselabel.setText("GREEN");
                 phaselabel.setId("green");
-                testpane.setId("inactive");
-                classpane.setId(null);
+                testpane.setDisable(true);
+                classpane.setDisable(false);
                 break;
             case 3:
                 phaselabel.setText("REFACTOR");
                 phaselabel.setId("refactor");
-                testpane.setId("inactive");
-                classpane.setId(null);
+                testpane.setDisable(true);
+                classpane.setDisable(false);
                 break;
         }
     }
