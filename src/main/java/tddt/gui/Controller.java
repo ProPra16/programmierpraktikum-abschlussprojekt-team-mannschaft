@@ -94,4 +94,28 @@ public class Controller {
     public void exerciseOutput(String title, String desc) {
         //this.c.createExercise(title, desc);
     }
+
+    public void setPhase(int i){
+        switch(i){
+            case 1:
+                phaselabel.setText("RED");
+                phaselabel.setId("red");
+                classpane.setId("inactive");
+                testpane.setId(null);
+                break;
+            case 2:
+                phaselabel.setText("GREEN");
+                phaselabel.setId("green");
+                testpane.setId("inactive");
+                classpane.setId(null);
+                break;
+            case 3:
+                phaselabel.setText("REFACTOR");
+                phaselabel.setId("refactor");
+                testpane.setId("inactive");
+                classpane.setId(null);
+                break;
+        }
+    }
+
 }
