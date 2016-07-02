@@ -3,6 +3,7 @@ package main.java.tddt.gui.dialogs;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.scene.control.Spinner;
 import main.java.tddt.gui.Controller;
 
 
