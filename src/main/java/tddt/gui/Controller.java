@@ -33,7 +33,7 @@ public class Controller {
 
     public void runTest() {
         Coordinator c = new Coordinator("Fak", "FakTest");
-        this.consolepane.setText(this.c.compile(this.classpane.getText(), this.testpane.getText()));
+        this.consolepane.setText(this.c.compile(classpane.getText(), this.testpane.getText()));
     }
 
     public void saveProject() {
