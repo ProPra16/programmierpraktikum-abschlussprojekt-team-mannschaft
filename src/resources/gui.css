@@ -133,7 +133,7 @@
     -fx-background-color: linear-gradient(from 0% 100% to 0% 0%, #000000, #444444);
 }
 
-#phaselabel{
+#phase{
     -fx-text-fill: #dddddd;
     -fx-font-weight: bold;
     -fx-font-size: 10pt;

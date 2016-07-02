@@ -37,9 +37,9 @@
         <Button fx:id="runbutton" onAction="#runTest" text="   "/>
         <Button fx:id="terminalbutton" onAction="#handleTerminal" text="   "/>
         <Label prefWidth="5"/>
-        <Label fx:id="phaselabel" text="Phase: " />
+        <Label id="label" text="Phase: " />
         <Label prefWidth="5"/>
-        <Label fx:id="red" text="RED" prefWidth="90"/>
+        <Label fx:id="phaselabel" id="red" text="RED" prefWidth="90"/>
         <Label prefWidth="10"/>
         <Label fx:id="clockpic" prefHeight="20" prefWidth="20"/>
         <Label prefWidth="5"/>
