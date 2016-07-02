@@ -33,13 +33,22 @@ public class Coordinator {
             Collection<CompileError> errors = compresult.getCompilerErrorsForCompilationUnit(classcompile);
             for(CompileError e : errors)result += e.getMessage() + "\n";
         }
-        //kann es nicht kompiliert werden, so können die Tests auch nicht ausgeführt werden
-        else if(testresult.getNumberOfFailedTests() > 0){
-            Collection<TestFailure> failures = testresult.getTestFailures();
-            for(TestFailure f : failures)result += f.getMessage() + "\n";
+        else{
+            result += "Compiled successfully" + "\n";
         }
-        else { //ansonsten sind alle Tests erfolgreich
-            result = "All Tests successful. "+"Number of executed tests: "+Integer.toString(testresult.getNumberOfSuccessfulTests());
+
+
+        //kann es nicht kompiliert werden, so können die Tests auch nicht ausgeführt werden
+        try {
+            if ((testresult.getNumberOfFailedTests() > 0)) {
+                Collection<TestFailure> failures = testresult.getTestFailures();
+                for (TestFailure f : failures) result += f.getMessage() + "\n";
+            } else { //ansonsten sind alle Tests erfolgreich
+                result += "All Tests successful. " + "Number of executed tests: " + Integer.toString(testresult.getNumberOfSuccessfulTests());
+            }
+        }
+        catch(NullPointerException n){//Falls die zu testende Methode noch nicht geschrieben ist
+            result = "The tested method does not exist.";
         }
             //hier soll ein log zur loglist Hinzufügung erstellt werden
 
@@ -53,23 +62,21 @@ public class Coordinator {
         compiler.compileAndRunTests();
         CompilerResult compresult = compiler.getCompilerResult();
         TestResult testresult = compiler.getTestResult();
-        //zumächst die Refactor fälle betrachtet
-        //Refactoring erfolgreich, man kann dann wieder zu RED wechseln
-        if(phase == 3 && !compresult.hasCompileErrors() && (testresult.getNumberOfFailedTests() == 0)){
-            phase = 1; //zurück zu RED
-        }
         //phase RED, also phase = 1
-        else if(phase == 1 && compresult.hasCompileErrors() ){//Bedingung auch erfüllt, wenn es Code gibt ,der nicht kompiliert
+        if(phase == 1 && compresult.hasCompileErrors() ){//Bedingung auch erfüllt, wenn es Code gibt ,der nicht kompiliert
             phase = 2;
         }
         else if(phase == 1  && (testresult.getNumberOfFailedTests() > 0)){
             phase = 2; //Bedingungen für Übergang zu Phase 2 also Green gegeben
         }
+        //Refactoring erfolgreich, man kann dann wieder zu RED wechseln
+        else if(phase == 3 && !compresult.hasCompileErrors() && (testresult.getNumberOfFailedTests() == 0)){
+            phase = 1; //zurück zu RED
+        }
         //phase GREEN also phase 2
         else if(phase == 2 && (testresult.getNumberOfFailedTests() == 0)){
             phase = 3; //Alle Tests ans Laufen bekommen, die Bedingung für das Refacotring erfüllt
         }
-
     }
 
     public void setPhase(int i){//zum aktiven Phasenwechsel, e.g. zurück zu RED oder bei Refactor
