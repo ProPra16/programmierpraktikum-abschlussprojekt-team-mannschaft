@@ -1,31 +1,76 @@
 package main.java.tddt.data;
 
+
+
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.annotation.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@XmlRootElement(name="logList")
+@XmlAccessorType (XmlAccessType.FIELD)
 public class LogList {
 
-    private List<Log> loglist = new ArrayList<Log>();
-    private String projektPath ;
+    @XmlElement(name = "log")
+    private List<Log> logs = new ArrayList<Log>();
 
 
-    public LogList(String projektPath){
-
-        this.projektPath=projektPath;
+    public List<Log> getLogs() {
+        return logs;
     }
-    public void add(Log l){
-        loglist.add(l);
 
+    public void setLogs(List<Log> logs) {
+        this.logs = logs;
     }
+
+    public void addLog(Log log){
+        logs.add(log);
+        saveLoglist();
+    }
+
     public void delete(){
-
-        for ( int i = 0; i < loglist.size(); i++ ) {
-            loglist.remove(i)   ;
-        }
-
+        logs.clear();
+        saveLoglist();
     }
+
     public Log getLog(int i){
-        return loglist.get(i); //Log-Objekt(i);
+        return logs.get(i);
     }
 
+
+    public void loadLoglist(){
+        try {
+            JAXBContext context = JAXBContext.newInstance(LogList.class);
+
+            Unmarshaller unmarshaller = context.createUnmarshaller();
+
+            LogList loglist = (LogList) unmarshaller.unmarshal(new File("Log.xml"));
+            this.logs = loglist.getLogs();
+        }catch(JAXBException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+    public void saveLoglist(){
+        try {
+            JAXBContext context = JAXBContext.newInstance(LogList.class);
+
+            Marshaller marshaller = context.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+            marshaller.marshal(this,new File("Log.xml"));
+
+        }catch(JAXBException e){
+            e.printStackTrace();
+        }
+    }
 }
