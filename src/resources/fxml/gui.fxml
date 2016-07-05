@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.LineChart?>
+<GridPane fx:controller="main.java.tddt.gui.Controller" xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="0" vgap="0">
+    <HBox fx:id="hbox" GridPane.vgrow="ALWAYS" alignment="CENTER_LEFT">
+        <MenuBar>
+            <Menu text="Project">
+                <MenuItem text="Select Exercise" onAction="#selectExercise"/>
+                <MenuItem text="Create Exercise" onAction="#createExercise"/>
+                <MenuItem text="Open Project" onAction="#openProject"/>
+                <MenuItem text="Save Project" onAction="#saveProject"/>
+                <MenuItem text="Run" onAction="#runTest"/>
+            </Menu>
+            <Menu text="Tracking">
+                <MenuItem text="Return to last Log-Point" onAction="#undo"/>
+                <MenuItem text="Show Log" onAction="#showLog"/>
+                <MenuItem text="Delete Log" onAction="#deleteLog"/>
+            </Menu>
+        </MenuBar>
+        <Button text="Babysteps" onAction="#babysteps"/>
+        <Button text="Last Phase" onAction="#lastPhase"/>
+        <Button text="Next Phase" onAction="#nextPhase"/>
+        <Button fx:id="runbutton" onAction="#runTest" text="   "/>
+        <Button fx:id="terminalbutton" onAction="#handleTerminal" text="   "/>
+        <Label prefWidth="5"/>
+        <Label id="phase" text="Phase: " />
+        <Label prefWidth="5"/>
+        <Label fx:id="phaselabel" id="red" text="RED" prefWidth="110"/>
+        <Label prefWidth="10"/>
+        <Label fx:id="clockpic" prefHeight="20" prefWidth="20"/>
+        <Label prefWidth="5"/>
+        <Label fx:id="clock" text="00:00"/>
+    </HBox>
+    <SplitPane fx:id="mainSplitPane" dividerPositions="1.0" orientation="VERTICAL" GridPane.rowIndex="1">
+        <SplitPane orientation="HORIZONTAL" minHeight="0">
+            <TitledPane fx:id="classtitled" text="Class-Editor" collapsible="false" minWidth="0">
+                <TextArea fx:id="classpane" prefHeight="100000" prefWidth="100000"/>
+            </TitledPane>
+            <TitledPane fx:id="testtitled" text="Test-Editor" collapsible="false" minWidth="0">
+                <TextArea fx:id="testpane" prefHeight="100000" prefWidth="100000"/>
+            </TitledPane>
+        </SplitPane>
+        <SplitPane orientation="HORIZONTAL" minHeight="0" >
+            <TitledPane collapsible="false" text="Terminal" minWidth="0" >
+                <ScrollPane  prefHeight="100000">
+                    <Label fx:id="consolepane" wrapText="false"/>
+                </ScrollPane>
+            </TitledPane>
+            <TabPane>
+                <Tab text="Exercise Description" closable="false">
+                    <ScrollPane>
+                        <Label fx:id="descriptionpane" wrapText="true" prefWidth="600"/>
+                    </ScrollPane>
+                </Tab>
+                <Tab text="Tracking Graph" closable="false">
+                    <ScrollPane>
+                        <LineChart fx:id="graph" prefHeight="230" prefWidth="600">
+                            <xAxis>
+                                <NumberAxis lowerBound="0" upperBound="45" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis label="Minutes" lowerBound="0" upperBound="15" tickUnit="1"/>
+                            </yAxis>
+                        </LineChart>
+                    </ScrollPane>
+                </Tab>
+            </TabPane>
+        </SplitPane>
+    </SplitPane>
+</GridPane>

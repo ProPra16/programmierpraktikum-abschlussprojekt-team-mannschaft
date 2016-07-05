@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.GridPane?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
+<GridPane fx:controller="main.java.tddt.gui.dialogs.SaveAlertController" xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
+
+    <Label fx:id="label" prefWidth="400" GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" wrapText="true" prefHeight="160"/>
+
+    <Button text="OK"  prefWidth="200" GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" onAction="#close" GridPane.halignment="CENTER"/>
+
+
+</GridPane>
