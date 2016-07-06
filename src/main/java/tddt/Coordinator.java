@@ -1,5 +1,7 @@
 package main.java.tddt;
 
+import main.java.tddt.data.Log;
+import main.java.tddt.data.LogList;
 import vk.core.api.*;
 import vk.core.api.CompilerResult;
 import vk.core.api.TestResult;
@@ -8,6 +10,8 @@ import vk.core.api.CompilerFactory;
 import vk.core.api.JavaStringCompiler;
 import vk.core.internal.*;
 import vk.core.internal.InternalResult;
+
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Collection;
 
@@ -15,11 +19,19 @@ public class Coordinator {
     private String classname; //namen bei einem Coordinator, der für eine Session ist, festgelegt
     private String testname;
     public int phase; //wird 1,2 oder 3 also red, green oder refactor
+    private boolean babystepsactiv = false;
+    public LogList logs = new LogList();
+    public LocalDateTime timer;
 
     public Coordinator(String classname,  String testname){
         this.classname = classname;
         this.testname = testname;
         phase = 1; //phase 1, also red bzw. tests schreiben
+    }
+    public Coordinator(String classname,  String testname, int phase){ //Konstruktor zum Laden einer bestimmten phase
+        this.classname = classname;
+        this.testname = testname;
+        this.phase = phase;
     }
     public String compile(String classcontent, String testcontent){
         String result = ""; //Compilemessages zurückgeben
@@ -46,7 +58,9 @@ public class Coordinator {
                 result += "All Tests successful. " + "Number of executed tests: " + Integer.toString(testresult.getNumberOfSuccessfulTests());
             }
         }
-        //hier soll ein log zur loglist Hinzufügung erstellt werden
+        LocalDateTime time = LocalDateTime.now();
+        //aktuellen Log hinzufügen
+        logs.addLog(new Log(this.phase, time, time, classcontent, testcontent, result));
 
         return result;
     }
@@ -80,9 +94,18 @@ public class Coordinator {
             }
         }
     }
-
-    public void setBabysteps(boolean activated, double time){
-
+    //logliste löschen
+    public void loglistdelete(){
+        logs.delete();
+    }
+    //zu letzter Phase zurück
+    public void lastPhase(){
+        if(this.phase == 1)this.phase = 3;
+        else this.phase = this.phase -1;
+    }
+    //Babysteps aktivieren
+    public void setBabysteps(){
+        this.babystepsactiv = true;
     }
 
 }
