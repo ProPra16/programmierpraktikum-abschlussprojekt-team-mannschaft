@@ -201,3 +201,59 @@
     -fx-opacity: 1.0;
     -fx-text-fill: black;
 }
+
+.default-color0.chart-series-line {
+    -fx-stroke: #ff0000;
+}
+.default-color1.chart-series-line {
+    -fx-stroke: #00ff00;
+}
+.default-color2.chart-series-line {
+    -fx-stroke: #333333;
+}
+.default-color0.chart-line-symbol {
+    -fx-background-color: #ff0000, #dddddd;
+}
+.default-color1.chart-line-symbol {
+    -fx-background-color: #00ff00, #dddddd;
+}
+.default-color2.chart-line-symbol {
+    -fx-background-color: #333333, #dddddd;
+}
+.chart-series-line {
+    -fx-stroke-width: 2px;
+    -fx-effect: null;
+}
+.chart-plot-background {
+    -fx-background-color: #999999;
+}
+.chart-vertical-grid-lines {
+    -fx-stroke: transparent;
+}
+.chart-horizontal-grid-lines {
+    -fx-stroke: #555555;
+}
+.chart-alternative-row-fill {
+    -fx-fill: #aaaaaa;
+}
+
+#yaxis {
+    -fx-font-size: 1.4em;
+    -fx-tick-length: 10;
+    -fx-minor-tick-length: 5;
+}
+#xaxis {
+    -fx-tick-length: 0;
+    -fx-minor-tick-length: 0;
+    -fx-tick-labels-visible: false;
+}
+
+#yaxis .label {
+   -fx-text-fill: #333333;
+}
+.axis-tick-mark {
+    -fx-stroke: #333333;
+}
+.axis-minor-tick-mark {
+    -fx-stroke: #333333;
+}

@@ -70,12 +70,12 @@
                 </Tab>
                 <Tab text="Tracking Graph" closable="false">
                     <ScrollPane>
-                        <LineChart fx:id="graph" prefHeight="230" prefWidth="600">
+                        <LineChart fx:id="graph" prefHeight="220" prefWidth="630">
                             <xAxis>
-                                <NumberAxis lowerBound="0" upperBound="45" />
+                                <NumberAxis id="xaxis" lowerBound="1" upperBound="12.5" tickUnit="1"/>
                             </xAxis>
                             <yAxis>
-                                <NumberAxis label="Minutes" lowerBound="0" upperBound="15" tickUnit="1"/>
+                                <NumberAxis id="yaxis" label="Minutes" lowerBound="0" upperBound="12.5" tickUnit="1"/>
                             </yAxis>
                         </LineChart>
                     </ScrollPane>
