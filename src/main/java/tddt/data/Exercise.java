@@ -22,14 +22,12 @@ public class Exercise {
     private String description;
     private String classtext;
     private String testtext;
-    private File file;
 
-    public Exercise(String title, String description, File file) {
+    public Exercise(String title, String description) {
         this.title = title;
         this.description = description;
         classtext = "public class " + title + "{\n\n\n}";
         testtext = "import static org.junit.Assert.*;\nimport org.junit.*;\n\npublic class " + title + "Test {\n\n\t@Test\n\tpublic void firsttest(){\n\t\tassertEquals(1,2);\n\t}\n}";
-        this.file = file;
     }
 
 
@@ -38,7 +36,7 @@ public class Exercise {
     public static void createExercise(String title, String description, File file) throws JAXBException {
         JAXBContext creation = JAXBContext.newInstance(Exercise.class);
         Marshaller marshaller = creation.createMarshaller();
-        marshaller.marshal(new Exercise(title, description, file),new File(file, title));
+        marshaller.marshal(new Exercise(title, description),new File(file + File.separator, title));
     }
 
     public String getTitle() {
