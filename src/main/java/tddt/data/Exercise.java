@@ -20,21 +20,25 @@ public class Exercise {
 
     private String title;
     private String description;
-    private String className;
-    private String testName;
-    private JAXBContext test;
+    private String classtext;
+    private String testtext;
+    private File file;
 
-    public Exercise(String title, String description, String className, String testName) {
+    public Exercise(String title, String description, File file) {
         this.title = title;
         this.description = description;
-        this.className = className;
-        this.testName = testName;
+        classtext = "public class " + title + "{\n\n\n}";
+        testtext = "import static org.junit.Assert.*;\nimport org.junit.*;\n\npublic class " + title + "Test {\n\n\t@Test\n\tpublic void firsttest(){\n\t\tassertEquals(1,2);\n\t}\n}";
+        this.file = file;
     }
 
-    public void createExercise(String title, String description) throws JAXBException {
-        this.test = JAXBContext.newInstance(Exercise.class);
-        Marshaller marshaller = this.test.createMarshaller();
-        marshaller.marshal(new Exercise(title, description, title, title+"Test"),new File(title+".xml"));
+
+
+
+    public static void createExercise(String title, String description, File file) throws JAXBException {
+        JAXBContext creation = JAXBContext.newInstance(Exercise.class);
+        Marshaller marshaller = creation.createMarshaller();
+        marshaller.marshal(new Exercise(title, description, file),new File(file, title));
     }
 
     public String getTitle() {
@@ -45,18 +49,18 @@ public class Exercise {
         return description;
     }
 
-    public String getClassName() {
-        return className;
+    public String getClasstext() {
+        return classtext;
     }
 
-    public String getTestName() {
-        return testName;
+    public String getTesttext() {
+        return testtext;
     }
 
-    public Exercise getExercise(String filepath) throws JAXBException {
-        this.test = JAXBContext.newInstance(Exercise.class);
-        Unmarshaller unmarshaller = this.test.createUnmarshaller();
-        Exercise exercise = (Exercise) unmarshaller.unmarshal(new File(test+".xml"));
+    public static Exercise getExercise(File file) throws JAXBException {
+        JAXBContext creation = JAXBContext.newInstance(Exercise.class);
+        Unmarshaller unmarshaller = creation.createUnmarshaller();
+        Exercise exercise = (Exercise) unmarshaller.unmarshal(file);
 
         return exercise;
     }
