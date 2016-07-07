@@ -11,6 +11,10 @@ import main.java.tddt.gui.Controller;
 /**
  * Created by Roter Emu on 02.07.2016.
  */
+
+/*
+    creates the CreateExercise-dialog
+ */
 public class CreateExerciseDialog {
 
     public CreateExerciseDialog(Stage main, Controller c) throws Exception{

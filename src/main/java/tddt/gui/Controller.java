@@ -1,6 +1,10 @@
 package main.java.tddt.gui;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
@@ -19,6 +23,8 @@ import main.java.tddt.data.Log;
 import main.java.tddt.gui.dialogs.ShowLogDialog;
 
 import java.io.File;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Controller {
 
@@ -49,10 +55,16 @@ public class Controller {
     private Coordinator c;
     // directory where all user-created files are saved
     private File initialFile;
+    // contains the series of timer-values for the graph
+    private ObservableList<Series<Double, Double>> lineChartData;
+    // contains the timer-values of phase 1, 2 and 3
+    private Series<Double, Double>[] phases;
+    // counts the overall amount of phases in the project
+    private int phaseCounter;
 
     /*
         Constructor of Controller:
-        initialises initalFile or creates the directory if it does not exist
+        initializes initalFile or creates the directory if it does not exist
         if this is the case it additionally creates a copy of the exercise-catalog out of the projects resources
      */
     public Controller(){
@@ -68,7 +80,7 @@ public class Controller {
     }
 
     /*
-        initialises the main stage of the application and sets the appearance of the window to phase 1
+        initializes the main stage of the application and sets the appearance of the window to phase 1
      */
     public void init(Stage stage) {
         this.stage = stage;
@@ -86,19 +98,17 @@ public class Controller {
             FileChooser choose = new FileChooser();
             choose.setInitialDirectory(exec);
             choose.setTitle("Select Exercise");
-            choose.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml"));
-            File exercise = choose.showOpenDialog(this.stage);
-            if (exercise != null) {
-                Exercise chosen = Exercise.getExercise(exercise);
-                this.classpane.setText(chosen.getClassText());
-                this.testpane.setText(chosen.getTestText());
-                this.descriptionpane.setText(chosen.getDescription());
-                this.classtitled.setText(chosen.getTitle());
-                this.testtitled.setText(chosen.getTitle() + "Test");
-                this.c = new Coordinator(chosen.getTitle(), chosen.getTitle() + "Test");
-                File projectFiles = new File(initialFile, chosen.getTitle() + "/Logs");
-                projectFiles.mkdirs();
-            }
+            Exercise chosen = Exercise.getExercise(choose.showOpenDialog(this.stage));
+            this.classpane.setText(chosen.getClassText());
+            this.testpane.setText(chosen.getTestText());
+            this.descriptionpane.setText(chosen.getDescription());
+            this.classtitled.setText(chosen.getTitle());
+            this.testtitled.setText(chosen.getTitle() + "Test");
+            this.c = new Coordinator(chosen.getTitle(), chosen.getTitle() + "Test", 1, this.clock);
+            File projectFiles = new File(initialFile, chosen.getTitle() + "/Logs");
+            projectFiles.mkdirs();
+            this.graphInit();
+            this.phaseCounter = 0;
         } catch(Exception e) {}
     }
 
@@ -120,17 +130,16 @@ public class Controller {
             DirectoryChooser choose = new DirectoryChooser();
             choose.setInitialDirectory(initialFile);
             choose.setTitle("Select Project");
-            String[] data = ProjectIO.getProject(choose.showDialog(this.stage));
-            this.classpane.setText(data[2]);
-            this.testpane.setText(data[3]);
-            this.descriptionpane.setText(data[1]);
-            this.classtitled.setText(data[0]);
-            this.testtitled.setText(data[0] + "Test");
-            this.c = new Coordinator(data[0], data[0] + "Test", Integer.parseInt(data[4]));
-            this.setPhase(Integer.parseInt(data[4]));
-
-            // Hier noch Tracking Graph
-
+            ProjectIO project = ProjectIO.getProject(choose.showDialog(this.stage));
+            this.classpane.setText(project.getClassText());
+            this.testpane.setText(project.getTestText());
+            this.descriptionpane.setText(project.getDescription());
+            this.classtitled.setText(project.getTitle());
+            this.testtitled.setText(project.getTitle() + "Test");
+            this.c = new Coordinator(project.getTitle(), project.getTitle() + "Test", project.getPhase(), this.clock);
+            this.phaseCounter = 0;
+            this.setPhase(project.getPhase());
+            this.graphInit(this.c.getPhaseTimes());
         } catch(Exception e) {}
     }
 
@@ -139,25 +148,32 @@ public class Controller {
         informs the user about the location the project was saved to
      */
     public void saveProject() {
-        File dest =  new File(initialFile, this.classtitled.getText());
-        try{
-            ProjectIO.saveProject(this.classtitled.getText(), this.descriptionpane.getText(), this.classpane.getText(), this.testpane.getText(), String.valueOf(this.c.phase), dest);
-        } catch(Exception e) {
+        if(this.c != null) {
+            File dest = new File(initialFile, this.classtitled.getText());
             try {
-                new Alert(this.stage, Alert.SAVE_PROJECT, "ERROR - Your project is incomplete");
-                return;
-            } catch(Exception d) {}
+                ProjectIO.saveProject(this.classtitled.getText(), this.descriptionpane.getText(), this.classpane.getText(), this.testpane.getText(), this.c.phase, this.c.getBabystepsActivated(), this.c.getBabystepsTime(), dest);
+            } catch (Exception e) {
+                try {
+                    new Alert(this.stage, Alert.SIMPEL_ALERT, "ERROR - Your project is incomplete");
+                    return;
+                } catch (Exception d) {
+                }
+            }
+            try {
+                new Alert(this.stage, Alert.SIMPEL_ALERT, "Your project was saved to: " + "\n" + dest.getAbsolutePath());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        try {
-            new Alert(this.stage, Alert.SAVE_PROJECT, dest.getAbsolutePath());
-        } catch(Exception e) {e.printStackTrace();}
     }
 
     /*
         lets compile and test the project by the coordinator and prints results to the terminal
      */
     public void runTest() {
-        this.consolepane.setText(this.c.compile(this.classpane.getText(), this.testpane.getText()));
+        if(this.c != null) {
+            this.consolepane.setText(this.c.compile(this.classpane.getText(), this.testpane.getText()));
+        }
     }
 
     /*
@@ -165,34 +181,39 @@ public class Controller {
         log-points are created after every run
      */
     public void undo() {
-        try{
-            new Alert(this.stage, this, Alert.LAST_LOG);
-        } catch (Exception e) {}
+        if(this.c != null) {
+            try {
+                new Alert(this.stage, this, Alert.LAST_LOG);
+            } catch (Exception e) {}
+        }
     }
 
     /*
         lets the user choose a specific log out of the log-list and displays its contents
      */
     public void showLog() {
-        try {
-            FileChooser choose = new FileChooser();
-            choose.setInitialDirectory(new File(initialFile, this.classtitled.getText() + "/Logs"));
-            choose.setTitle("Select Log");
-            choose.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml"));
-            Log log = Log.getLog(choose.showOpenDialog(this.stage));
-            if(log != null) {
-                new ShowLogDialog(stage, log);
-            }
-        } catch (Exception e) {}
+        if(this.c != null) {
+            try {
+                FileChooser choose = new FileChooser();
+                choose.setInitialDirectory(new File(initialFile, this.classtitled.getText() + "/Logs"));
+                choose.setTitle("Select Log");
+                Log log = Log.getLog(choose.showOpenDialog(this.stage));
+                if (log != null) {
+                    new ShowLogDialog(stage, log);
+                }
+            } catch (Exception e) {}
+        }
     }
 
     /*
-        lets the usere delete the whole log-list
+        lets the user delete the whole log-list
      */
     public void deleteLog() {
-        try{
-            new Alert(this.stage, this, Alert.DELETE_LOG);
-        } catch (Exception e) {}
+        if(this.c != null) {
+            try {
+                new Alert(this.stage, this, Alert.DELETE_LOG);
+            } catch (Exception e) {}
+        }
     }
 
     /*
@@ -201,9 +222,11 @@ public class Controller {
         new configurations will affect the next and following phases; not the current phase
      */
     public void babysteps() {
-        try {
-            new BabystepsDialog(this.stage, true, 4.5, this); // coordinator muss init daten liefern
-        } catch (Exception e) {}
+        if(this.c != null) {
+            try {
+                new BabystepsDialog(this.stage, this.c.getBabystepsActivated(), this.c.getBabystepsTime(), this);
+            } catch (Exception e) {}
+        }
     }
 
     /*
@@ -211,9 +234,11 @@ public class Controller {
         all changes, that were made in the current phase are deleted
      */
     public void lastPhase() {
-        try{
-            new Alert(this.stage, this, Alert.LAST_PHASE);
-        } catch (Exception e) {}
+        if(this.c != null) {
+            try {
+                new Alert(this.stage, this, Alert.LAST_PHASE);
+            } catch (Exception e) {}
+        }
     }
 
     /*
@@ -221,9 +246,19 @@ public class Controller {
         the coordinator checks whether this is valid or not
      */
     public void nextPhase() {
-        // Hier noch meldung falls Phasenwechsel unzulässig
-        this.c.nextPhase(this.classpane.getText(), this.testpane.getText());
-        this.setPhase(this.c.phase);
+        if(this.c != null) {
+            int lastphase = this.c.phase;
+            LocalDateTime phasetime = this.c.nextPhase(this.classpane.getText(), this.testpane.getText());
+            if (phasetime != null) {
+                this.setPhase(this.c.phase);
+                this.updateGraph(lastphase, phasetime);
+            } else {
+                try {
+                    new Alert(this.stage, Alert.SIMPEL_ALERT, "Changing phases was not permitted!");
+                } catch (Exception e) {
+                }
+            }
+        }
     }
 
     /*
@@ -278,29 +313,42 @@ public class Controller {
         corresponding method: lastPhase()
      */
     public void lastPhaseOutput() {
-        this.setPhase(c.phase-1);
-        //Log log = this.c.lastPhase();
+        try {
+            Log log = this.c.lastPhase();
+            this.classpane.setText(log.getClassText());
+            this.testpane.setText(log.getTestText());
+            this.consolepane.setText(log.getCompileMessage());
+            this.clock.setText(log.getTimer().format(DateTimeFormatter.ofPattern("mm:ss")));
+            this.setPhase(this.c.phase);
+            this.deleteLastGraph(this.c.phase);
+        } catch (Exception e) {}
     }
 
     /*
         corresponding method: deleteLog()
      */
     public void deleteLogOutput() {
-        //this.c.deleteLog();
+        this.c.deleteLog();
     }
 
     /*
         corresponding method: undoOutput()
      */
     public void undoOutput() {
-        //this.c.lastLog();
+        try {
+            Log log = this.c.lastLog();
+            this.classpane.setText(log.getClassText());
+            this.testpane.setText(log.getTestText());
+            this.consolepane.setText(log.getCompileMessage());
+            this.clock.setText(log.getTimer().format(DateTimeFormatter.ofPattern("mm:ss")));
+        } catch (Exception e) {}
     }
 
     /*
         corresponding method: babysteps()
      */
     public void babystepsOutput(boolean activated, double minutes){
-        // this.c.setBabystepsActivated(activated, minutes);
+         this.c.setBabystepsActivated(activated, minutes);
     }
 
     /*
@@ -330,9 +378,66 @@ public class Controller {
     }
 
     /*
-        sets the timer
+        initializes the tracking graph, after opening an existing project
      */
-    public void setClock(String time){
-        this.clock.setText(time);
+    private void graphInit(LocalDateTime[][] phaseTimes) {
+        this.graphInit();
+        for(int i = 0; i < phaseTimes[0].length; i++){
+            this.phaseCounter++;
+            int min = phaseTimes[0][i].getMinute();
+            int sec = phaseTimes[0][i].getSecond();
+            double timer = min + sec/60.0;
+            this.phases[0].getData().add(new XYChart.Data<>((double) this.phaseCounter, timer));
+        }
+        for(int i = 0; i < phaseTimes[1].length; i++){
+            this.phaseCounter++;
+            int min = phaseTimes[1][i].getMinute();
+            int sec = phaseTimes[1][i].getSecond();
+            double timer = min + sec/60.0;
+            this.phases[1].getData().add(new XYChart.Data<>((double) this.phaseCounter, timer));
+        }
+        for(int i = 0; i < phaseTimes[2].length; i++){
+            this.phaseCounter++;
+            int min = phaseTimes[2][i].getMinute();
+            int sec = phaseTimes[2][i].getSecond();
+            double timer = min + sec/60.0;
+            this.phases[2].getData().add(new XYChart.Data<>((double) this.phaseCounter, timer));
+        }
+    }
+
+    /*
+        initializes all objects concerning the graph
+     */
+    private void graphInit(){
+        this.lineChartData = FXCollections.observableArrayList();
+        this.phases = new Series[3];
+        this.phases[0] = new Series<>();
+        this.phases[0].setName("RED");
+        this.phases[1] = new Series<>();
+        this.phases[1].setName("GREEN");
+        this.phases[2] = new Series<>();
+        this.phases[2].setName("REFACTOR");
+        this.lineChartData.addAll(this.phases[0], this.phases[1], this.phases[2]);
+        this.graph.setData(lineChartData);
+    }
+
+    /*
+        attaches the given value to the tracking graph
+     */
+    private void updateGraph(int phase, LocalDateTime phasetime) {
+        this.phaseCounter++;
+        int min = phasetime.getMinute();
+        int sec = phasetime.getSecond();
+        double timer = min + sec/60.0;
+        this.phases[phase-1].getData().add(new XYChart.Data<>((double) this.phaseCounter, timer));
+    }
+
+    /*
+        deletes the last point of the graph
+     */
+    private void deleteLastGraph(int phase) {
+        this.phaseCounter--;
+        int index = this.phases[phase-1].getData().size()-1;
+        this.phases[phase-1].getData().remove(index);
     }
 }

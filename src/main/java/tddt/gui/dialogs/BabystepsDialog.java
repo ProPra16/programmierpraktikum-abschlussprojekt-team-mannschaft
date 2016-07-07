@@ -11,6 +11,10 @@ import main.java.tddt.gui.Controller;
 /**
  * Created by Roter Emu on 28.06.2016.
  */
+
+/*
+    creates the BabySteps-Dialog
+ */
 public class BabystepsDialog {
 
     public BabystepsDialog(Stage main, boolean active, double minutes, Controller c) throws Exception{

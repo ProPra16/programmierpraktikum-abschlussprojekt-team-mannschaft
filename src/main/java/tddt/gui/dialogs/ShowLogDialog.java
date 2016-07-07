@@ -13,6 +13,10 @@ import java.time.format.DateTimeFormatter;
 /**
  * Created by Roter Emu on 05.07.2016.
  */
+
+/*
+    creates the ShowLog-dialog
+ */
 public class ShowLogDialog {
     public ShowLogDialog(Stage main, Log log) throws Exception {
         Stage stage = new Stage(StageStyle.UTILITY);

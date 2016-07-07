@@ -9,6 +9,13 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
+/**
+ * Created by Roter Emu on 23.06.2016.
+ */
+
+/*
+    creates the window of the application
+ */
 public class GUIMain extends Application{
 
     @Override
