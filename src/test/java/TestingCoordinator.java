@@ -75,4 +75,33 @@ public class TestingCoordinator {
         //phase sollte hiernach wieder 1 sein also RED für den Kreislauf
         assertEquals(1, coortest.phase);
     }
+
+    @Test
+    public void coordinatormitphase2init(){
+        Coordinator coortest = new Coordinator("Bar", "BarTest", 2);
+        coortest.nextPhase(klassencontent, testcontent);
+        //phase sollte danach dann 3 sein
+        assertEquals(3, coortest.phase);
+    }
+
+    @Test
+    public void lastphaseTestbackto1(){
+        Coordinator coortest = new Coordinator("Bar", "BarTest", 2);
+        coortest.lastPhase();
+        assertEquals(1, coortest.phase);
+    }
+
+    @Test
+    public void lastphaseTestbackto2(){
+        Coordinator coortest = new Coordinator("Bar", "BarTest", 3);
+        coortest.lastPhase();
+        assertEquals(2, coortest.phase);
+    }
+
+    @Test
+    public void lastphaseTestbackto3(){
+        Coordinator coortest = new Coordinator("Bar", "BarTest", 1);
+        coortest.lastPhase();
+        assertEquals(3, coortest.phase);
+    }
 }
