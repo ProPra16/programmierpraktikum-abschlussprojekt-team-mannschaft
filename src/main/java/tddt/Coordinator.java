@@ -20,7 +20,7 @@ public class Coordinator {
     private String classname; //namen bei einem Coordinator, der für eine Session ist, festgelegt
     private String testname;
     public int phase; //wird 1,2 oder 3 also red, green oder refactor
-    public Label zeitlabel;  //gui verbindung
+    //public Label zeitlabel;  //gui verbindung
     private boolean babystepsactiv = false;
     public LogList logs = new LogList();
     LocalDateTime timer;
@@ -35,12 +35,12 @@ public class Coordinator {
         this.testname = testname;
         this.phase = phase;
     }
-    public Coordinator(String classname,  String testname, int phase, Label label){ //Konstruktor zum Laden einer bestimmten phase und übergebenem Label
+    /*public Coordinator(String classname,  String testname, int phase, Label label){ //Konstruktor zum Laden einer bestimmten phase und übergebenem Label
         this.classname = classname;
         this.testname = testname;
         this.phase = phase;
         this.zeitlabel = label;
-    }
+    }*/
     public String compile(String classcontent, String testcontent){
         String result = ""; //Compilemessages zurückgeben
         CompilationUnit testcompile = new CompilationUnit(testname, testcontent, true);
@@ -73,7 +73,7 @@ public class Coordinator {
         return result;
     }
 
-    public void nextPhase(String classcontent, String testcontent){
+    public Log nextPhase(String classcontent, String testcontent){
         CompilationUnit testcompile = new CompilationUnit(testname, testcontent, true);
         CompilationUnit classcompile = new CompilationUnit(classname, classcontent, false);
         JavaStringCompiler compiler = CompilerFactory.getCompiler(classcompile, testcompile);
@@ -98,14 +98,18 @@ public class Coordinator {
                 phase = 1; //zurück zu RED
             }
         }
+        Log log = null;
         if(this.phase != tempphase){//Beim Wechsel der Phase Log hinzufügen, timer speichern und neu starten für die neue Phase
             LocalDateTime time = LocalDateTime.now();
             //aktuellen Log hinzufügen
-            logs.addLog(new Log(this.phase, time, timer, classcontent, testcontent, ""));
+            log = new Log(this.phase, time, timer, classcontent, testcontent, "");
+            logs.addLog(log);
+            return log;
             //Funktionen noch nicht vorhanden
             //timer.stop
             //timer = new Timer
         }
+        return log;
     }
 
     //zurück zum Zustand des letzten Logs
@@ -117,13 +121,24 @@ public class Coordinator {
         logs.delete();
     }
     //zu letzter Phase zurück
-    public void lastPhase(){
+    public Log lastPhase(){
         if(this.phase == 1)this.phase = 3;
         else this.phase = this.phase -1;
+        this.backToLastLog();
+        return logs.getLog(logs.size());
     }
     //Babysteps aktivieren
-    public void setBabysteps(){
+    public boolean getBabystepsActivated(){
         this.babystepsactiv = true;
+        return this.babystepsactiv;
+    }
+    public double getBabystepsTime(){
+        return 0.2;
+    }
+    public LocalDateTime[][] getPhaseTimes(){
+        LocalDateTime[][] times = new LocalDateTime[3][4];
+        times[0][1] = LocalDateTime.now();
+        return times;
     }
 
 }
