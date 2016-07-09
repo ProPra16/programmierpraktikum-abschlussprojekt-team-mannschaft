@@ -53,7 +53,7 @@ public class CreateExerciseController {
         else {
             try {
                 c.exerciseOutput(titlelabel.getText(), desclabel.getText());
-            } catch(Exception e) {e.printStackTrace();}
+            } catch(Exception e) {}
             stage.close();
         }
     }
