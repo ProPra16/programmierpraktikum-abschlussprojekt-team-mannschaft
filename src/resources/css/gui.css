@@ -33,12 +33,12 @@
 }
 
 .text-area .content{
-    -fx-background-color: linear-gradient(#777777 0%, #999999 10%, #aaaaaa 80%);
+    -fx-background-color: linear-gradient(#999999 0%, #bbbbbb 10%, #cccccc 80%);
     -fx-padding: 10px;
 }
 
 #runbutton{
-    -fx-background-image: url("graphics/run.png");
+    -fx-background-image: url("../graphics/run.png");
     -fx-background-repeat: stretch;
     -fx-background-size: 15px 15px;
     -fx-background-position: center center;
@@ -58,7 +58,7 @@
 }
 
 #terminalbutton{
-    -fx-background-image: url("graphics/terminal.png");
+    -fx-background-image: url("../graphics/terminal.png");
     -fx-background-repeat: stretch;
     -fx-background-size: 20px 20px;
     -fx-background-position: center center;
@@ -74,7 +74,7 @@
 }
 
 .titled-pane .content{
-    -fx-background-color: linear-gradient(#777777 0%, #999999 10%, #aaaaaa 80%);
+    -fx-background-color: linear-gradient(#999999 0%, #aaaaaa 10%, #bbbbbb 80%);
 }
 
 .titled-pane{
@@ -89,21 +89,17 @@
     -fx-background-radius: 0px;
 }
 
-#testpane{
-    -fx-text-fill: white;
-}
-
 #hbox{
     -fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #333333, #888888);
 }
 
 .split-pane .split-pane-divider {
     -fx-padding: 0 0.03em 0 0.03em;
-    -fx-background-color: linear-gradient(#555555 0%, #aaaaaa 10%, #bbbbbb 80%);
+    -fx-background-color: linear-gradient(#555555 0%, #777777 10%, #999999 80%);
 }
 
 .scroll-pane .viewport{
-    -fx-background-color: linear-gradient(#777777 0%, #999999 10%, #aaaaaa 80%);
+    -fx-background-color: linear-gradient(#999999 0%, #aaaaaa 10%, #bbbbbb 80%);
 }
 
 .scroll-pane .scroll-bar{
@@ -126,25 +122,28 @@
     -fx-background-color: linear-gradient(from 0% 100% to 0% 0%, #111111, #666666);
 }
 
+.tab-content-area{
+    -fx-background-color: linear-gradient(#999999 0%, #aaaaaa 10%, #bbbbbb 80%);
+}
+
 .tab-label{
     -fx-font-weight: bold;
     -fx-font-size: 9pt;
     -fx-text-fill: #dddddd;
 }
 
-.tab-pane .tab:selected
-{
+.tab-pane .tab:selected{
     -fx-background-color: linear-gradient(from 0% 100% to 0% 0%, #000000, #444444);
 }
 
-#phaselabel{
+#phase{
     -fx-text-fill: #dddddd;
     -fx-font-weight: bold;
     -fx-font-size: 10pt;
 }
 
 #clockpic{
-    -fx-background-image: url("graphics/clock.png");
+    -fx-background-image: url("../graphics/clock.png");
     -fx-background-repeat: stretch;
     -fx-background-size: 100% 100%;
     -fx-background-position: center center;
@@ -178,8 +177,86 @@
     -fx-alignment: center;
 }
 #green{
-    -fx-text-fill: #00ffff;
+    -fx-border-style: solid;
+    -fx-border-width: 100%;
+    -fx-border-color: #dddddd;
+    -fx-border-radius: 8px;
+    -fx-text-fill: #00ff00;
+    -fx-font-weight: bold;
+    -fx-font-size: 10pt;
+    -fx-padding: 0px 5px 0px 5px;
+    -fx-alignment: center;
 }
 #refactor{
+    -fx-border-style: solid;
+    -fx-border-width: 100%;
+    -fx-border-color: #dddddd;
+    -fx-border-radius: 8px;
     -fx-text-fill: #dddddd;
+    -fx-font-weight: bold;
+    -fx-font-size: 10pt;
+    -fx-padding: 0px 5px 0px 5px;
+    -fx-alignment: center;
+}
+
+.text-area:disabled{
+    -fx-background-color: linear-gradient(#777777 0%, #888888 10%, #999999 80%);
+    -fx-opacity: 1.0;
+    -fx-text-fill: black;
+}
+
+.default-color0.chart-series-line {
+    -fx-stroke: #ff0000;
+}
+.default-color1.chart-series-line {
+    -fx-stroke: #00ff00;
+}
+.default-color2.chart-series-line {
+    -fx-stroke: #333333;
+}
+.default-color0.chart-line-symbol {
+    -fx-background-color: #ff0000, #dddddd;
+}
+.default-color1.chart-line-symbol {
+    -fx-background-color: #00ff00, #dddddd;
+}
+.default-color2.chart-line-symbol {
+    -fx-background-color: #333333, #dddddd;
+}
+.chart-series-line {
+    -fx-stroke-width: 2px;
+    -fx-effect: null;
+}
+.chart-plot-background {
+    -fx-background-color: #999999;
+}
+.chart-vertical-grid-lines {
+    -fx-stroke: transparent;
+}
+.chart-horizontal-grid-lines {
+    -fx-stroke: #555555;
+}
+.chart-alternative-row-fill {
+    -fx-fill: #aaaaaa;
+}
+
+#yaxis {
+    -fx-font-size: 1.4em;
+    -fx-tick-length: 10;
+    -fx-minor-tick-length: 5;
+}
+#xaxis {
+    -fx-tick-length: 0;
+    -fx-minor-tick-length: 0;
+    -fx-tick-labels-visible: false;
+}
+
+#yaxis .label {
+   -fx-text-fill: #333333;
+}
+.axis-tick-mark {
+    -fx-stroke: #333333;
+}
+.axis-minor-tick-mark {
+    -fx-stroke: #333333;
 }

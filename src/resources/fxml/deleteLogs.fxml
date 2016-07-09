@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.GridPane?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
+<GridPane fx:controller="main.java.tddt.gui.dialogs.DeleteLogsController" xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
+
+    <Label text="You are about to delete all log-files of this project irretrievably!" prefWidth="210" GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" prefHeight="80" wrapText="true" GridPane.columnSpan="2"/>
+
+    <Button text="Delete" GridPane.columnIndex="1" prefWidth="100" GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" onAction="#delete"/>
+    <Button text="Cancel" GridPane.rowIndex="1" prefWidth="100" GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" onAction="#cancel"/>
+
+</GridPane>
