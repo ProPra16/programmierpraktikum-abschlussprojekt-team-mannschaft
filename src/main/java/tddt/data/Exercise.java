@@ -24,6 +24,10 @@ public class Exercise {
     @XmlElement
     private String testtext;
 
+    public Exercise() {
+
+    }
+
     public Exercise(String title, String description) {
         this.title = title;
         this.description = description;
@@ -37,7 +41,7 @@ public class Exercise {
     public static void createExercise(String title, String description, File file) throws JAXBException {
         JAXBContext creation = JAXBContext.newInstance(Exercise.class);
         Marshaller marshaller = creation.createMarshaller();
-        marshaller.marshal(new Exercise(title, description),new File(file,File.separator +title));
+        marshaller.marshal(new Exercise(title, description),new File(file,File.separator + title));
     }
 
     public String getTitle() {
