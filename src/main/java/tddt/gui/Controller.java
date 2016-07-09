@@ -164,8 +164,8 @@ public class Controller {
             File dest = new File(initialFile, this.classtitled.getText());
             try {
                 ProjectIO.saveProject(this.classtitled.getText(), this.descriptionpane.getText(), this.classpane.getText(), this.testpane.getText(), this.c.phase, this.c.getBabystepsActivated(), this.c.getBabystepsTime(), dest);
-                BufferedWriter classWriter = new BufferedWriter(new FileWriter(new File(this.initialFile, File.separator + this.classtitled.getText() + ".java")));
-                BufferedWriter testWriter = new BufferedWriter(new FileWriter(new File(this.initialFile, File.separator + this.testtitled.getText() + ".java")));
+                BufferedWriter classWriter = new BufferedWriter(new FileWriter(new File(this.initialFile, File.separator + this.classtitled.getText() + File.separator + this.classtitled.getText() + ".java")));
+                BufferedWriter testWriter = new BufferedWriter(new FileWriter(new File(this.initialFile, File.separator + this.classtitled.getText() + File.separator + this.testtitled.getText() + ".java")));
                 classWriter.write(this.classpane.getText());
                 testWriter.write(this.testpane.getText());
                 classWriter.close();
