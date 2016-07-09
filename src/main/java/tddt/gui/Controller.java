@@ -442,4 +442,14 @@ public class Controller {
         int index = this.phases[phase-1].getData().size()-1;
         this.phases[phase-1].getData().remove(index);
     }
+
+    /*
+        setzt alle Daten auf den Zustand vom Beginn der Phase, wenn der Babystepstimer abgelaufen ist
+     */
+    public void timeoveratBabystepping(Log log){
+        this.testpane.setText(log.getTestText());
+        this.classpane.setText(log.getClassText());
+        this.consolepane.setText(log.getCompileMessage());
+        this.clock.setText(log.getTimer().format(DateTimeFormatter.ofPattern("mm:ss")));
+    }
 }
