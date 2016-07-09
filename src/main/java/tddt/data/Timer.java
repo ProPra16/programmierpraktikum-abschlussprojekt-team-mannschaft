@@ -33,6 +33,7 @@ public class Timer {
     public Timer(Label clock,LocalDateTime start){
         this.time=start;
         this.clock=clock;
+        this.c = null;
         this.clock.setId("clock");
         this.now= LocalDateTime.now();
         this.start();
@@ -59,8 +60,8 @@ public class Timer {
 
                 public void handle(long i) {
                     elapsedSeconds = Duration.between(now, LocalDateTime.now()).getSeconds();
-                    time.withMinute((int)elapsedSeconds/60);
-                    time.withSecond((int)elapsedSeconds % 60) ;
+                    time.withMinute((int) elapsedSeconds / 60);
+                    time.withSecond((int) elapsedSeconds % 60) ;
 
                     if(c==null){
                         clock.setText(time.getMinute() + ":" + time.getSecond());
@@ -68,16 +69,15 @@ public class Timer {
                         elapsedSeconds = Duration.between(now.plusMinutes(time.getMinute()).plusSeconds(time.getSecond()) , LocalDateTime.now()).getSeconds();
                         babystepstime.minusMinutes(elapsedSeconds/60);
                         babystepstime.minusSeconds(elapsedSeconds % 60) ;
-                        
-                    }
-                    if(babystepstime.getMinute()==0&&babystepstime.getSecond()<=30){
-                        clock.setId("clockred");
-                    }
-                    if(babystepstime.getMinute()==0&&babystepstime.getSecond()<=5){
-                        Toolkit.getDefaultToolkit().beep();
-                    }
-                    if(babystepstime.getMinute()==0&&babystepstime.getSecond()<=0){
-                        c.Babystepsover();
+                        if(babystepstime.getMinute()==0&&babystepstime.getSecond()<=30){
+                            clock.setId("clockred");
+                        }
+                        if(babystepstime.getMinute()==0&&babystepstime.getSecond()<=5){
+                            Toolkit.getDefaultToolkit().beep();
+                        }
+                        if(babystepstime.getMinute()==0&&babystepstime.getSecond()<=0){
+                            c.Babystepsover();
+                        }
                     }
                 }
 
