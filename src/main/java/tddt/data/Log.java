@@ -51,7 +51,14 @@ public class Log  {
 
     public void setPhase(int phase) { this.phase=phase; }
     public void setTime(LocalDateTime time) { this.time = time.format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss")); }
-    public void setTimer(LocalDateTime timer) { this.timer = timer.format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss")); }
+    public void setTimer(LocalDateTime timer) {
+        if(timer != null){
+            this.timer = timer.format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"));
+        }
+        else{
+            this.timer = "";
+        }
+    }
     public void setClassText(String classText) { this.classText= testText;}
     public void setTestText(String testText) { this.testText = testText; }
     public void setCompileMessage(String compileMessage) { this.compileMessage = compileMessage; }
@@ -75,6 +82,9 @@ public class Log  {
 
     public LocalDateTime getTimer() {
         DateTimeFormatter timerFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
+        if(timer.equals("")){
+            return null;
+        }
         return LocalDateTime.parse(timer, timerFormat);
     }
 
