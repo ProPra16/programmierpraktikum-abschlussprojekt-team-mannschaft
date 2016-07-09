@@ -1,5 +1,4 @@
 package main.java.tddt.data;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -26,7 +25,7 @@ public class Log  {
     // Konstruktor
     public Log(){}
     public Log (int phase, LocalDateTime time, LocalDateTime timer,
-                String classText, String testText, String compileMessage) {
+                  String classText, String testText, String compileMessage) {
         this.phase = phase;
 
         // setze Time und Timer
@@ -47,12 +46,12 @@ public class Log  {
         Marshaller marshaller = creation.createMarshaller();
 
         // Erstelle XML Datei und Dateiname ist Datum und Uhr
-        marshaller.marshal(new Log(phase, time, timer, classText, testText, compileMessage), new File(file + File.separator, time.format(DateTimeFormatter.ofPattern("yyyy-MM-DD-HH-mm-ss"))));
+        marshaller.marshal(new Log(phase, time, timer, classText, testText, compileMessage), new File(file + File.separator, time.format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"))));
     }
 
     public void setPhase(int phase) { this.phase=phase; }
-    public void setTime(LocalDateTime time) { this.time = time.toString(); }
-    public void setTimer(LocalDateTime timer) { this.timer = timer.toString(); }
+    public void setTime(LocalDateTime time) { this.time = time.format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss")); }
+    public void setTimer(LocalDateTime timer) { this.timer = timer.format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss")); }
     public void setClassText(String classText) { this.classText= testText;}
     public void setTestText(String testText) { this.testText = testText; }
     public void setCompileMessage(String compileMessage) { this.compileMessage = compileMessage; }
@@ -68,14 +67,14 @@ public class Log  {
     public LocalDateTime getTime() {
         // z.B. 2016-07-04T16:30:42.576
         // jahr-monat-tagTstunden:minute:sekunde.milisekunde
-       // String str ="2016-07-04T16:30:42.576";
+        // String str ="2016-07-04T16:30:42.576"
         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
         return LocalDateTime.parse(time, timeFormat);
 
     }
 
     public LocalDateTime getTimer() {
-        DateTimeFormatter timerFormat = DateTimeFormatter.ofPattern("HH-mm-ss");
+        DateTimeFormatter timerFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
         return LocalDateTime.parse(timer, timerFormat);
     }
 
