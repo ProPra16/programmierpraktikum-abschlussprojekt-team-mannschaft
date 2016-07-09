@@ -250,7 +250,10 @@ public class Controller {
     public void nextPhase() {
         if(this.c != null) {
             int lastphase = this.c.phase;
-            LocalDateTime phasetime = this.c.nextPhase(this.classpane.getText(), this.testpane.getText());
+            LocalDateTime phasetime = null;
+            try {
+                phasetime = this.c.nextPhase(this.classpane.getText(), this.testpane.getText());
+            } catch(Exception e) {}
             if (phasetime != null) {
                 this.setPhase(this.c.phase);
                 this.updateGraph(lastphase, phasetime);
