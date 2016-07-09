@@ -5,10 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
-import javafx.scene.control.Label;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.*;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -48,6 +45,8 @@ public class Controller {
     public TitledPane classtitled;
     // shows the tracking graph
     public LineChart graph;
+    // shows the graph-object
+    public TabPane tabpane;
 
     // main stage of the application
     private Stage stage;
@@ -85,6 +84,8 @@ public class Controller {
     public void init(Stage stage) {
         this.stage = stage;
         this.setPhase(1);
+        this.graph.prefHeightProperty().bind(this.tabpane.prefHeightProperty());
+        this.graph.prefWidthProperty().bind(this.tabpane.prefWidthProperty());
     }
 
     /*
@@ -99,12 +100,12 @@ public class Controller {
             choose.setInitialDirectory(exec);
             choose.setTitle("Select Exercise");
             Exercise chosen = Exercise.getExercise(choose.showOpenDialog(this.stage));
-            this.classpane.setText(chosen.getClassText());
-            this.testpane.setText(chosen.getTestText());
+            this.classpane.setText(chosen.getClasstext());
+            this.testpane.setText(chosen.getTesttext());
             this.descriptionpane.setText(chosen.getDescription());
             this.classtitled.setText(chosen.getTitle());
             this.testtitled.setText(chosen.getTitle() + "Test");
-            this.c = new Coordinator(chosen.getTitle(), chosen.getTitle() + "Test", 1, this.clock);
+            this.c = new Coordinator(chosen.getTitle(), chosen.getTitle() + "Test", 1);
             File projectFiles = new File(initialFile, chosen.getTitle() + "/Logs");
             projectFiles.mkdirs();
             this.graphInit();
@@ -136,7 +137,7 @@ public class Controller {
             this.descriptionpane.setText(project.getDescription());
             this.classtitled.setText(project.getTitle());
             this.testtitled.setText(project.getTitle() + "Test");
-            this.c = new Coordinator(project.getTitle(), project.getTitle() + "Test", project.getPhase(), this.clock);
+            this.c = new Coordinator(project.getTitle(), project.getTitle() + "Test", project.getPhase());
             this.phaseCounter = 0;
             this.setPhase(project.getPhase());
             this.graphInit(this.c.getPhaseTimes());
@@ -292,7 +293,7 @@ public class Controller {
     /*
         corresponding method: createExercise()
      */
-    public void exerciseOutput(String title, String desc) {
+    public void exerciseOutput(String title, String desc) throws Exception {
         Exercise.createExercise(title, desc, new File(initialFile, "exercises"));
     }
 
