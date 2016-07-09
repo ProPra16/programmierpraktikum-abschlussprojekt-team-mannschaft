@@ -46,7 +46,7 @@ public class Log  {
         Marshaller marshaller = creation.createMarshaller();
 
         // Erstelle XML Datei und Dateiname ist Datum und Uhr
-        marshaller.marshal(new Log(phase, time, timer, classText, testText, compileMessage), new File(file + File.separator, time.toString()));
+        marshaller.marshal(new Log(phase, time, timer, classText, testText, compileMessage), new File(file + File.separator, time.format(DateTimeFormatter.ofPattern("yyyy-MM-DD-HH-mm-ss"))));
     }
 
     public void setPhase(int phase) { this.phase=phase; }
@@ -67,9 +67,9 @@ public class Log  {
     public LocalDateTime getTime() {
         // z.B. 2016-07-04T16:30:42.576
         // jahr-monat-tagTstunden:minute:sekunde.milisekunde
-        String str ="2016-07-04T16:30:42.576";
-        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss.zzz");
-        return LocalDateTime.parse(str, timeFormat);
+       // String str ="2016-07-04T16:30:42.576";
+        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
+        return LocalDateTime.parse(time, timeFormat);
 
     }
 
