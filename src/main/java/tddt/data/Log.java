@@ -29,6 +29,7 @@ public class Log  {
         this.phase = phase;
 
         // setze Time und Timer
+
         this.setTime(time);
         this.setTimer(timer);
 

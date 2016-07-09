@@ -58,10 +58,10 @@ public class LogList {
     // delete letzte Log aus logs-List und aus exercises-Ordner
     public void deleteLast() {
         // speichere Name von letzten Log aus der logs-List
-        String fileNameLastLog = logs.get(logs.size() - 1).getTime().toString();
+        String fileNameLastLog = logs.get(logs.size() ).getTime().toString();
 
         // delete letzte Log aus der logs-Liste
-        logs.remove(logs.size() - 1);
+        logs.remove(logs.size() );
 
         // oeffne letzen Log-Datei aus exercises-Ordner
         File fileLastLog = new File(directoryPath + fileNameLastLog);
