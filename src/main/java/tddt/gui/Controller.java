@@ -132,8 +132,8 @@ public class Controller {
             choose.setInitialDirectory(initialFile);
             choose.setTitle("Select Project");
             ProjectIO project = ProjectIO.getProject(choose.showDialog(this.stage));
-            this.classpane.setText(project.getClassText());
-            this.testpane.setText(project.getTestText());
+            this.classpane.setText(project.getClasstext());
+            this.testpane.setText(project.getTesttext());
             this.descriptionpane.setText(project.getDescription());
             this.classtitled.setText(project.getTitle());
             this.testtitled.setText(project.getTitle() + "Test");
