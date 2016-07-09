@@ -107,7 +107,7 @@ public class Controller {
             this.testtitled.setText(chosen.getTitle() + "Test");
             File projectFiles = new File(initialFile, chosen.getTitle() + "/Logs");
             projectFiles.mkdirs();
-            this.c = new Coordinator(chosen.getTitle(), chosen.getTitle() + "Test", 1, projectFiles);
+            this.c = new Coordinator(chosen.getTitle(), chosen.getTitle() + "Test", 1, projectFiles, this.clock, this);
             this.graphInit();
             this.phaseCounter = 0;
         } catch(Exception e) {}
@@ -138,7 +138,7 @@ public class Controller {
             this.descriptionpane.setText(project.getDescription());
             this.classtitled.setText(project.getTitle());
             this.testtitled.setText(project.getTitle() + "Test");
-            this.c = new Coordinator(project.getTitle(), project.getTitle() + "Test", project.getPhase(), new File(chosen, File.separator + "Logs"));
+            this.c = new Coordinator(project.getTitle(), project.getTitle() + "Test", project.getPhase(), new File(chosen, File.separator + "Logs"), this.clock, this);
             this.phaseCounter = 0;
             this.setPhase(project.getPhase());
             this.graphInit(this.c.getPhaseTimes());
