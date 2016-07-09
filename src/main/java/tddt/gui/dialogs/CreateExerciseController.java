@@ -51,8 +51,10 @@ public class CreateExerciseController {
             alert.setText("Insert valid information please");
         }
         else {
-            c.exerciseOutput(titlelabel.getText(), desclabel.getText());
-            stage.close();
+            try {
+                c.exerciseOutput(titlelabel.getText(), desclabel.getText());
+                stage.close();
+            } catch(Exception e) {}
         }
     }
 }
