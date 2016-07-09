@@ -105,9 +105,9 @@ public class Controller {
             this.descriptionpane.setText(chosen.getDescription());
             this.classtitled.setText(chosen.getTitle());
             this.testtitled.setText(chosen.getTitle() + "Test");
-            this.c = new Coordinator(chosen.getTitle(), chosen.getTitle() + "Test", 1);
             File projectFiles = new File(initialFile, chosen.getTitle() + "/Logs");
             projectFiles.mkdirs();
+            this.c = new Coordinator(chosen.getTitle(), chosen.getTitle() + "Test", 1, projectFiles);
             this.graphInit();
             this.phaseCounter = 0;
         } catch(Exception e) {}
@@ -131,13 +131,14 @@ public class Controller {
             DirectoryChooser choose = new DirectoryChooser();
             choose.setInitialDirectory(initialFile);
             choose.setTitle("Select Project");
-            ProjectIO project = ProjectIO.getProject(choose.showDialog(this.stage));
+            File chosen = choose.showDialog(this.stage);
+            ProjectIO project = ProjectIO.getProject(chosen);
             this.classpane.setText(project.getClasstext());
             this.testpane.setText(project.getTesttext());
             this.descriptionpane.setText(project.getDescription());
             this.classtitled.setText(project.getTitle());
             this.testtitled.setText(project.getTitle() + "Test");
-            this.c = new Coordinator(project.getTitle(), project.getTitle() + "Test", project.getPhase());
+            this.c = new Coordinator(project.getTitle(), project.getTitle() + "Test", project.getPhase(), new File(chosen, File.separator + "Logs"));
             this.phaseCounter = 0;
             this.setPhase(project.getPhase());
             this.graphInit(this.c.getPhaseTimes());
