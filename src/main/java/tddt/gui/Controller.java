@@ -261,14 +261,14 @@ public class Controller {
             try {
                 phasetime = this.c.nextPhase(this.classpane.getText(), this.testpane.getText());
             } catch(Exception e) {}
-            if (phasetime != null) {
-                this.setPhase(this.c.phase);
-                this.updateGraph(lastphase, phasetime);
-            } else {
+            if (phasetime == null) {
                 try {
                     new Alert(this.stage, Alert.SIMPEL_ALERT, "Changing phases was not permitted!");
-                } catch (Exception e) {
-                }
+                } catch (Exception e) {}
+            }
+            else {
+                this.setPhase(this.c.phase);
+                this.updateGraph(lastphase, phasetime);
             }
         }
     }
