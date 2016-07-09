@@ -24,6 +24,7 @@ public class Log  {
     private String compileMessage;
 
     // Konstruktor
+    public Log(){}
     public Log (int phase, LocalDateTime time, LocalDateTime timer,
                 String classText, String testText, String compileMessage) {
         this.phase = phase;
