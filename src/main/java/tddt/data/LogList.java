@@ -6,35 +6,34 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.FilenameFilter;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LogList {
 
     // Liste mit allen logs
-    List<Log> logs = new ArrayList<>();
+    private List<Log> logs = new ArrayList<>();
 
     // Pfad zu exercises-Ordner wo alle XML Datein gesaved werden
-    public static String directoryPath = LogList.class.getResource("exercices/").toExternalForm();
+    public static File directoryPath;
 
     // Konstruktor
     // geht zu Ordner-exercises und sucht alle Datei mit XML
     // und fuegt dann alle in die obere Liste
-    public LogList() {
-        // oeffne exercises-Ordner
-        File directory = new File(directoryPath);
-
+    public LogList(File directory) {
+        directoryPath = directory;
         // suche alle Datein mit Endung XML und save Dateinamen in Array
-        String[] allLogFiles = directory.list((File dir, String name) -> name.endsWith(".xml"));
+        File[] allLogFiles = directory.listFiles();
 
         // oeffne alle gefundenen Datein und lese XML und fuege in logs Liste hinzu
         Log log = null;
         JAXBContext creation = null;
-        for (String logFile : allLogFiles) {
+        for (File logFile : allLogFiles) {
             try {
                 creation = JAXBContext.newInstance(Log.class);
                 Unmarshaller unmarshaller = creation.createUnmarshaller();
-                log = (Log) unmarshaller.unmarshal(getClass().getResource("/exercises/" + logFile));
+                log = (Log) unmarshaller.unmarshal(logFile);
                 logs.add(log);
             } catch (JAXBException e) {
                 e.printStackTrace();
@@ -45,7 +44,7 @@ public class LogList {
     // fuege log in Liste und erstelle neue log-XML Datei
     public void addLog(Log log) throws JAXBException {
         logs.add(log);
-        Log.createLog(log.getPhase(), log.getTime(), log.getTimer(), log.getClassText(), log.getTestText(), log.getCompileMessage(),new File(directoryPath));
+        Log.createLog(log.getPhase(), log.getTime(), log.getTimer(), log.getClassText(), log.getTestText(), log.getCompileMessage(),directoryPath);
     }
 
     // delete alle Logs aus logs-Liste und alle Datein aus exercises-Ordner
@@ -58,33 +57,18 @@ public class LogList {
     // delete letzte Log aus logs-List und aus exercises-Ordner
     public void deleteLast() {
         // speichere Name von letzten Log aus der logs-List
-        String fileNameLastLog = logs.get(logs.size() ).getTime().toString();
+        String fileNameLastLog = logs.get(logs.size()-1 ).getTime().format(DateTimeFormatter.ofPattern("yyyy-MM-DD-HH-mm-ss"));
 
         // delete letzte Log aus der logs-Liste
-        logs.remove(logs.size() );
+        logs.remove(logs.size()-1);
 
         // oeffne letzen Log-Datei aus exercises-Ordner
-        File fileLastLog = new File(directoryPath + fileNameLastLog);
+        File fileLastLog = new File(directoryPath, File.separator + fileNameLastLog);
 
-        // Delete letzte Log-Datei und gibt Meldung aus
-        if (fileLastLog.delete() == true) System.out.println(fileLastLog.getName() + "wurde deleted");
-        else {
-            System.out.println("Fehler beim Log-deleten");
-        }
-
-    }
-
-    public void setLogs(List<Log> logs) {
-        this.logs = logs;
     }
 
     public Log getLog(int index) {
         return logs.get(index);
-    }
-
-    public List<Log> getLogs() {
-        return logs;
-
     }
 
     public int size(){
