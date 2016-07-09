@@ -295,7 +295,7 @@ public class Controller {
         corresponding method: createExercise()
      */
     public void exerciseOutput(String title, String desc) throws Exception {
-        Exercise.createExercise(title, desc, new File(initialFile, "exercises"));
+        Exercise.createExercise(title, desc, new File(initialFile, File.separator + "exercises"));
     }
 
     /*
