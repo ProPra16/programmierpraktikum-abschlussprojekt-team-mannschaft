@@ -3,11 +3,8 @@ package main.java.tddt.data;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.annotation.XmlType;
 import java.io.File;
 
 /**
@@ -15,13 +12,16 @@ import java.io.File;
  */
 
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
-@XmlType(propOrder = {" title", "description", "classtext", "testtext"})
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Exercise {
 
+    @XmlElement
     private String title;
+    @XmlElement
     private String description;
+    @XmlElement
     private String classtext;
+    @XmlElement
     private String testtext;
 
     public Exercise(String title, String description) {

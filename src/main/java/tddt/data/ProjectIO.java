@@ -4,10 +4,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 import java.io.File;
 
 /**
@@ -15,20 +12,26 @@ import java.io.File;
  */
 
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
-@XmlType(propOrder = {"title", "description", "classtesxt", "testext", "phase", "babystepsactive", "babymins"})
+@XmlAccessorType(XmlAccessType.FIELD)
 
 public class ProjectIO {
 
+    @XmlElement
     private String title;
+    @XmlElement
     private String description;
+    @XmlElement
     private String classtext;
+    @XmlElement
     private String testtext;
+    @XmlElement
     private int phase;
+    @XmlElement
     private boolean babystepsactive;
+    @XmlElement
     private double babymins;
 
-    private ProjectIO(String title, String description, String classtext, String testtext, int phase, boolean babystepsactive, double babymins) {
+    public  ProjectIO(String title, String description, String classtext, String testtext, int phase, boolean babystepsactive, double babymins) {
         this.title = title;
         this.description = description;
         this.classtext = classtext;
@@ -38,7 +41,7 @@ public class ProjectIO {
         this.babymins = babymins;
     }
 
-    public static void saveProjectIO(String title, String description, String classtext, String testtext, int phase, boolean babystepsactive, double babymins, File file) throws JAXBException {
+    public static void saveProject(String title, String description, String classtext, String testtext, int phase, boolean babystepsactive, double babymins, File file) throws JAXBException {
         JAXBContext creation = JAXBContext.newInstance(ProjectIO.class);
         Marshaller marshaller = creation.createMarshaller();
         marshaller.marshal(new ProjectIO(title, description, classtext, testtext, phase, babystepsactive, babymins), new File(file + File.separator, title));
@@ -58,7 +61,7 @@ public class ProjectIO {
 
     public double getBabymins() { return babymins;}
 
-    public static ProjectIO getProjectIO(File file) throws JAXBException {
+    public static ProjectIO getProject(File file) throws JAXBException {
         JAXBContext creation = JAXBContext.newInstance(ProjectIO.class);
         Unmarshaller unmarshaller = creation.createUnmarshaller();
         ProjectIO projectIO = (ProjectIO) unmarshaller.unmarshal(file);
