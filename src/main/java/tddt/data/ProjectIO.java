@@ -44,7 +44,7 @@ public class ProjectIO {
     public static void saveProject(String title, String description, String classtext, String testtext, int phase, boolean babystepsactive, double babymins, File file) throws JAXBException {
         JAXBContext creation = JAXBContext.newInstance(ProjectIO.class);
         Marshaller marshaller = creation.createMarshaller();
-        marshaller.marshal(new ProjectIO(title, description, classtext, testtext, phase, babystepsactive, babymins), new File(file + File.separator, title));
+        marshaller.marshal(new ProjectIO(title, description, classtext, testtext, phase, babystepsactive, babymins), new File(file,File.separator + title));
     }
 
     public String getTitle() { return title;}
