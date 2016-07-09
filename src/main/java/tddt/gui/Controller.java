@@ -22,6 +22,7 @@ import main.java.tddt.gui.dialogs.ShowLogDialog;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class Controller {
 
@@ -403,26 +404,26 @@ public class Controller {
     /*
         initializes the tracking graph, after opening an existing project
      */
-    private void graphInit(LocalDateTime[][] phaseTimes) {
+    private void graphInit(ArrayList<LocalDateTime>[] phaseTimes) {
         this.graphInit();
-        for(int i = 0; i < phaseTimes[0].length; i++){
+        for(int i = 0; i < phaseTimes[0].size(); i++){
             this.phaseCounter++;
-            int min = phaseTimes[0][i].getMinute();
-            int sec = phaseTimes[0][i].getSecond();
+            int min = phaseTimes[0].get(i).getMinute();
+            int sec = phaseTimes[0].get(i).getSecond();
             double timer = min + sec/60.0;
             this.phases[0].getData().add(new XYChart.Data<>((double) this.phaseCounter, timer));
         }
-        for(int i = 0; i < phaseTimes[1].length; i++){
+        for(int i = 0; i < phaseTimes[1].size(); i++){
             this.phaseCounter++;
-            int min = phaseTimes[1][i].getMinute();
-            int sec = phaseTimes[1][i].getSecond();
+            int min = phaseTimes[1].get(i).getMinute();
+            int sec = phaseTimes[1].get(i).getSecond();
             double timer = min + sec/60.0;
             this.phases[1].getData().add(new XYChart.Data<>((double) this.phaseCounter, timer));
         }
-        for(int i = 0; i < phaseTimes[2].length; i++){
+        for(int i = 0; i < phaseTimes[2].size(); i++){
             this.phaseCounter++;
-            int min = phaseTimes[2][i].getMinute();
-            int sec = phaseTimes[2][i].getSecond();
+            int min = phaseTimes[2].get(i).getMinute();
+            int sec = phaseTimes[2].get(i).getSecond();
             double timer = min + sec/60.0;
             this.phases[2].getData().add(new XYChart.Data<>((double) this.phaseCounter, timer));
         }
