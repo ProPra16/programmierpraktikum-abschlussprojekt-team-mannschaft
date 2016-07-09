@@ -320,7 +320,9 @@ public class Controller {
             this.classpane.setText(log.getClassText());
             this.testpane.setText(log.getTestText());
             this.consolepane.setText(log.getCompileMessage());
-            this.clock.setText(log.getTimer().format(DateTimeFormatter.ofPattern("mm:ss")));
+            if(log.getTimer() != null) {
+                this.clock.setText(log.getTimer().format(DateTimeFormatter.ofPattern("mm:ss")));
+            }
             this.setPhase(this.c.phase);
             this.deleteLastGraph(this.c.phase);
         } catch (Exception e) {}
@@ -342,7 +344,9 @@ public class Controller {
             this.classpane.setText(log.getClassText());
             this.testpane.setText(log.getTestText());
             this.consolepane.setText(log.getCompileMessage());
-            this.clock.setText(log.getTimer().format(DateTimeFormatter.ofPattern("mm:ss")));
+            if(log.getTimer() != null) {
+                this.clock.setText(log.getTimer().format(DateTimeFormatter.ofPattern("mm:ss")));
+            }
         } catch (Exception e) {}
     }
 
@@ -450,6 +454,8 @@ public class Controller {
         this.testpane.setText(log.getTestText());
         this.classpane.setText(log.getClassText());
         this.consolepane.setText(log.getCompileMessage());
-        this.clock.setText(log.getTimer().format(DateTimeFormatter.ofPattern("mm:ss")));
+        if(log.getTimer() != null) {
+            this.clock.setText(log.getTimer().format(DateTimeFormatter.ofPattern("mm:ss")));
+        }
     }
 }
