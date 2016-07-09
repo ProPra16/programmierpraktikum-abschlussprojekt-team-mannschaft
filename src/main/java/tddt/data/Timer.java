@@ -1,4 +1,4 @@
-package main.java.tdtt.data;
+package main.java.tddt.data;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -12,7 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import main.java.tdtt.Coordinator;
+import main.java.tddt.Coordinator;
 
 import java.awt.*;
 import java.time.Duration;
