@@ -12,6 +12,7 @@ import vk.core.api.JavaStringCompiler;
 import vk.core.internal.*;
 import vk.core.internal.InternalResult;
 
+import javax.xml.bind.JAXBException;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Collection;
@@ -68,8 +69,10 @@ public class Coordinator {
         }
         LocalDateTime time = LocalDateTime.now();
         //aktuellen Log hinzufügen
-        logs.addLog(new Log(this.phase, time, null, classcontent, testcontent, result)); //timer nur bei phasenwechsel wichtig
-
+        try {
+            logs.addLog(new Log(this.phase, time, null, classcontent, testcontent, result)); //timer nur bei phasenwechsel wichtig
+        }
+        catch(JAXBException j){}
         return result;
     }
 
@@ -102,9 +105,12 @@ public class Coordinator {
         if(this.phase != tempphase){//Beim Wechsel der Phase Log hinzufügen, timer speichern und neu starten für die neue Phase
             LocalDateTime time = LocalDateTime.now();
             //aktuellen Log hinzufügen
-            log = new Log(this.phase, time, timer, classcontent, testcontent, "");
-            logs.addLog(log);
-            return log;
+            try {
+                log = new Log(this.phase, time, timer, classcontent, testcontent, "");
+                logs.addLog(log);
+                return log;
+            }
+            catch(JAXBException j){}
             //Funktionen noch nicht vorhanden
             //timer.stop
             //timer = new Timer
@@ -114,18 +120,35 @@ public class Coordinator {
 
     //zurück zum Zustand des letzten Logs
     public void backToLastLog(){
-        //logs.remove(logs.size()); //aktuellen Log löschen
+        logs.deleteLast(); //aktuellen Log löschen
     }
     //logliste löschen
     public void loglistdelete(){
-        logs.delete();
+        logs.deleteAll();
     }
     //zu letzter Phase zurück
     public Log lastPhase(){
-        if(this.phase == 1)this.phase = 3;
-        else this.phase = this.phase -1;
+        int tempphase = logs.getLog(logs.size()-1).getPhase();
         this.backToLastLog();
-        return logs.getLog(logs.size());
+        if(tempphase == logs.getLog(logs.size()-1).getPhase()){ //Log zurück bis es der letzte Log der letzten Phase ist
+            return this.lastPhase();
+        }
+        else {
+            this.phase = logs.getLog(logs.size()-1).getPhase();//Phase entsprechend aendern
+            return logs.getLog(logs.size() - 1);
+        }
+    }
+
+    public Log Babystepsover(){ //wenn die zeit in den Babysteps abgelaufen ist, dann an Anfang der Phase springen
+        int tempphase = logs.getLog(logs.size()-1).getPhase();
+        this.backToLastLog();
+        if(tempphase == logs.getLog(logs.size()-1).getPhase()){ //Log zurück bis es der letzte Log der letzten Phase ist
+            return this.lastPhase();
+        }
+        else {
+            //in Phase bleiben, sodass man nun wieder am Anfang der Phase ist, die man mit Babysteps gestartet hat
+            return logs.getLog(logs.size() - 1);
+        }
     }
     //Babysteps aktivieren
     public boolean getBabystepsActivated(){
