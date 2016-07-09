@@ -157,16 +157,15 @@ public class Coordinator {
         }
     }
 
-    public Log Babystepsover(){ //wenn die zeit in den Babysteps abgelaufen ist, dann an Anfang der Phase springen
+    public void Babystepsover(){ //wenn die zeit in den Babysteps abgelaufen ist, dann an Anfang der Phase springen
         int tempphase = logs.getLog(logs.size()-1).getPhase();
         this.BackToLastLog();
         if(tempphase == logs.getLog(logs.size()-1).getPhase()){ //Log zurück bis es der letzte Log der letzten Phase ist
-            return this.lastPhase();
+            this.Babystepsover();
         }
         else {
             //in Phase bleiben, sodass man nun wieder am Anfang der Phase ist, die man mit Babysteps gestartet hat
-            conti.timeoveratBabystepping();
-            return logs.getLog(logs.size() - 1);
+            conti.timeoveratBabystepping(logs.getLog(logs.size() - 1));
         }
     }
 
