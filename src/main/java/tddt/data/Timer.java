@@ -58,9 +58,9 @@ public class Timer {
          this.timer = new AnimationTimer() {
 
                 public void handle(long i) {
-                    elapsedSeconds = Duration.between(now.plusMinutes(time.getMinute()).plusSeconds(time.getSecond()) , LocalDateTime.now()).getSeconds();
-                    time.plusMinutes(elapsedSeconds/60);
-                    time.plusSeconds(elapsedSeconds % 60) ;
+                    elapsedSeconds = Duration.between(now, LocalDateTime.now()).getSeconds();
+                    time.withMinutes(elapsedSeconds/60);
+                    time.withSeconds(elapsedSeconds % 60) ;
 
                     if(c==null){
                         clock.setText(time.getMinute() + ":" + time.getSecond());
