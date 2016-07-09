@@ -37,12 +37,12 @@ public class Timer {
         this.now= LocalDateTime.now();
         this.start();
     }
-    public Timer(Label clock, Coordinator c,LocalDateTime start){
+    public Timer(Label clock, Coordinator c,double start){
         this.clock=clock;
         this.c=c;
         this.now= LocalDateTime.now();
         this.clock.setId("clock");
-        this.babystepstime=start;
+        this.babystepstime=LocalDateTime.now().withMinute((int)start).withSecond((long)((start-((int)start))*60));
         this.time = LocalDateTime.now().withMinute(0).withSecond(0);////!
         this.start();
 
