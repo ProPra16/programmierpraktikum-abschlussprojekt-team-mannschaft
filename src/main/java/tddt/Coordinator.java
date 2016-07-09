@@ -13,6 +13,7 @@ import vk.core.internal.*;
 import vk.core.internal.InternalResult;
 
 import javax.xml.bind.JAXBException;
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Collection;
@@ -23,8 +24,10 @@ public class Coordinator {
     public int phase; //wird 1,2 oder 3 also red, green oder refactor
     //public Label zeitlabel;  //gui verbindung
     private boolean babystepsactiv = false;
-    public LogList logs = new LogList();
-    LocalDateTime timer;
+    public LogList logs;
+    private File logfile;
+    LocalDateTime timer = LocalDateTime.now();
+    private double babystepstime;
 
     public Coordinator(String classname,  String testname){ //Anfangskonstuktor
         this.classname = classname;
@@ -35,6 +38,12 @@ public class Coordinator {
         this.classname = classname;
         this.testname = testname;
         this.phase = phase;
+    }
+    public Coordinator(String classname, String testname, int phase, File file){//Konstruktor zum Laden eines vorhandenen Logs
+        this.classname = classname;
+        this.testname = testname;
+        this.phase = phase;
+        this.logfile = file;
     }
     /*public Coordinator(String classname,  String testname, int phase, Label label){ //Konstruktor zum Laden einer bestimmten phase und übergebenem Label
         this.classname = classname;
@@ -70,13 +79,13 @@ public class Coordinator {
         LocalDateTime time = LocalDateTime.now();
         //aktuellen Log hinzufügen
         try {
-            logs.addLog(new Log(this.phase, time, null, classcontent, testcontent, result)); //timer nur bei phasenwechsel wichtig
+            logs.addLog(new Log(this.phase, time, timer, classcontent, testcontent, result)); //timer nur bei phasenwechsel wichtig
         }
         catch(JAXBException j){}
         return result;
     }
 
-    public Log nextPhase(String classcontent, String testcontent){
+    public LocalDateTime nextPhase(String classcontent, String testcontent){
         CompilationUnit testcompile = new CompilationUnit(testname, testcontent, true);
         CompilationUnit classcompile = new CompilationUnit(classname, classcontent, false);
         JavaStringCompiler compiler = CompilerFactory.getCompiler(classcompile, testcompile);
@@ -101,35 +110,37 @@ public class Coordinator {
                 phase = 1; //zurück zu RED
             }
         }
-        Log log = null;
+        LocalDateTime time = LocalDateTime.now();
         if(this.phase != tempphase){//Beim Wechsel der Phase Log hinzufügen, timer speichern und neu starten für die neue Phase
-            LocalDateTime time = LocalDateTime.now();
             //aktuellen Log hinzufügen
             try {
-                log = new Log(this.phase, time, timer, classcontent, testcontent, "");
-                logs.addLog(log);
-                return log;
+                logs.addLog(new Log(this.phase, time, time, classcontent, testcontent, "test"));
+                return time;
             }
             catch(JAXBException j){}
             //Funktionen noch nicht vorhanden
             //timer.stop
             //timer = new Timer
         }
-        return log;
+        return time;
     }
 
     //zurück zum Zustand des letzten Logs
-    public void backToLastLog(){
+    public void BackToLastLog(){
         logs.deleteLast(); //aktuellen Log löschen
     }
+    public Log lastLog(){
+        logs.deleteLast(); //aktuellen Log löschen
+        return logs.getLog(logs.size() - 1);
+    }
     //logliste löschen
-    public void loglistdelete(){
+    public void deleteLog(){
         logs.deleteAll();
     }
     //zu letzter Phase zurück
     public Log lastPhase(){
         int tempphase = logs.getLog(logs.size()-1).getPhase();
-        this.backToLastLog();
+        this.BackToLastLog();
         if(tempphase == logs.getLog(logs.size()-1).getPhase()){ //Log zurück bis es der letzte Log der letzten Phase ist
             return this.lastPhase();
         }
@@ -141,7 +152,7 @@ public class Coordinator {
 
     public Log Babystepsover(){ //wenn die zeit in den Babysteps abgelaufen ist, dann an Anfang der Phase springen
         int tempphase = logs.getLog(logs.size()-1).getPhase();
-        this.backToLastLog();
+        this.BackToLastLog();
         if(tempphase == logs.getLog(logs.size()-1).getPhase()){ //Log zurück bis es der letzte Log der letzten Phase ist
             return this.lastPhase();
         }
@@ -150,14 +161,20 @@ public class Coordinator {
             return logs.getLog(logs.size() - 1);
         }
     }
-    //Babysteps aktivieren
+
+    public void setBabystepsActivated(boolean activ, double timing){
+        this.babystepsactiv = activ;
+        this.babystepstime = timing;
+    }
+
+    //Babystepszustand holen
     public boolean getBabystepsActivated(){
-        this.babystepsactiv = true;
         return this.babystepsactiv;
     }
     public double getBabystepsTime(){
-        return 0.2;
+        return babystepstime;
     }
+
     public LocalDateTime[][] getPhaseTimes(){
         LocalDateTime[][] times = new LocalDateTime[3][4];
         times[0][1] = LocalDateTime.now();
