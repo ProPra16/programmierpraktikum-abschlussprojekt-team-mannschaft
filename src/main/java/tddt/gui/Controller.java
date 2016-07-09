@@ -343,7 +343,7 @@ public class Controller {
                     new Alert(this.stage, Alert.SIMPEL_ALERT, "No logs existing. Changing phase not possible");
                 } catch(Exception e){}
             }
-        } catch (Exception e) {e.printStackTrace();}
+        } catch (Exception e) {}
     }
 
     /*
