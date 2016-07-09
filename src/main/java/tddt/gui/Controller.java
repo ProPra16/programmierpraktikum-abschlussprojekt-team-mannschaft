@@ -100,16 +100,23 @@ public class Controller {
             choose.setInitialDirectory(exec);
             choose.setTitle("Select Exercise");
             Exercise chosen = Exercise.getExercise(choose.showOpenDialog(this.stage));
-            this.classpane.setText(chosen.getClasstext());
-            this.testpane.setText(chosen.getTesttext());
-            this.descriptionpane.setText(chosen.getDescription());
-            this.classtitled.setText(chosen.getTitle());
-            this.testtitled.setText(chosen.getTitle() + "Test");
             File projectFiles = new File(initialFile, chosen.getTitle() + "/Logs");
-            projectFiles.mkdirs();
-            this.c = new Coordinator(chosen.getTitle(), chosen.getTitle() + "Test", 1, projectFiles, this.clock, this);
-            this.graphInit();
-            this.phaseCounter = 0;
+            if(projectFiles.exists()){
+                try{
+                    new Alert(this.stage, Alert.SIMPEL_ALERT, "The project already exists");
+                }catch(Exception e){}
+            }
+            else {
+                projectFiles.mkdirs();
+                this.classpane.setText(chosen.getClasstext());
+                this.testpane.setText(chosen.getTesttext());
+                this.descriptionpane.setText(chosen.getDescription());
+                this.classtitled.setText(chosen.getTitle());
+                this.testtitled.setText(chosen.getTitle() + "Test");
+                this.c = new Coordinator(chosen.getTitle(), chosen.getTitle() + "Test", 1, projectFiles, this.clock, this);
+                this.graphInit();
+                this.phaseCounter = 0;
+            }
         } catch(Exception e) {}
     }
 
@@ -320,14 +327,21 @@ public class Controller {
     public void lastPhaseOutput() {
         try {
             Log log = this.c.lastPhase();
-            this.classpane.setText(log.getClassText());
-            this.testpane.setText(log.getTestText());
-            this.consolepane.setText(log.getCompileMessage());
-            if(log.getTimer() != null) {
-                this.clock.setText(log.getTimer().format(DateTimeFormatter.ofPattern("mm:ss")));
+            if(log != null) {
+                this.classpane.setText(log.getClassText());
+                this.testpane.setText(log.getTestText());
+                this.consolepane.setText(log.getCompileMessage());
+                if (log.getTimer() != null) {
+                    this.clock.setText(log.getTimer().format(DateTimeFormatter.ofPattern("mm:ss")));
+                }
+                this.setPhase(this.c.phase);
+                this.deleteLastGraph(this.c.phase);
             }
-            this.setPhase(this.c.phase);
-            this.deleteLastGraph(this.c.phase);
+            else{
+                try{
+                    new Alert(this.stage, Alert.SIMPEL_ALERT, "No logs existing. Changing phase not possible");
+                } catch(Exception e){}
+            }
         } catch (Exception e) {}
     }
 
