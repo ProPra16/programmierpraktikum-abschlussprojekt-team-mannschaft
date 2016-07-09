@@ -132,7 +132,7 @@ public class Controller {
             choose.setInitialDirectory(initialFile);
             choose.setTitle("Select Project");
             File chosen = choose.showDialog(this.stage);
-            ProjectIO project = ProjectIO.getProject(chosen);
+            ProjectIO project = ProjectIO.getProject(new File(chosen, File.separator + chosen.getName()));
             this.classpane.setText(project.getClasstext());
             this.testpane.setText(project.getTesttext());
             this.descriptionpane.setText(project.getDescription());
