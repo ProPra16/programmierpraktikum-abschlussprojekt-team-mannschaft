@@ -122,14 +122,17 @@
     -fx-background-color: linear-gradient(from 0% 100% to 0% 0%, #111111, #666666);
 }
 
+.tab-content-area{
+    -fx-background-color: linear-gradient(#999999 0%, #aaaaaa 10%, #bbbbbb 80%);
+}
+
 .tab-label{
     -fx-font-weight: bold;
     -fx-font-size: 9pt;
     -fx-text-fill: #dddddd;
 }
 
-.tab-pane .tab:selected
-{
+.tab-pane .tab:selected{
     -fx-background-color: linear-gradient(from 0% 100% to 0% 0%, #000000, #444444);
 }
 

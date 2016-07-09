@@ -62,23 +62,21 @@
                     <Label fx:id="consolepane" wrapText="false"/>
                 </ScrollPane>
             </TitledPane>
-            <TabPane>
+            <TabPane fx:id="tabpane">
                 <Tab text="Exercise Description" closable="false">
                     <ScrollPane>
                         <Label fx:id="descriptionpane" wrapText="true" prefWidth="600"/>
                     </ScrollPane>
                 </Tab>
-                <Tab text="Tracking Graph" closable="false">
-                    <ScrollPane>
-                        <LineChart fx:id="graph" prefHeight="220" prefWidth="630">
-                            <xAxis>
-                                <NumberAxis id="xaxis" lowerBound="1" upperBound="12.5" tickUnit="1"/>
-                            </xAxis>
-                            <yAxis>
-                                <NumberAxis id="yaxis" label="Minutes" lowerBound="0" upperBound="12.5" tickUnit="1"/>
-                            </yAxis>
-                        </LineChart>
-                    </ScrollPane>
+                <Tab fx:id="graphtab" text="Tracking Graph" closable="false">
+                    <LineChart fx:id="graph" prefHeight="220" prefWidth="630">
+                        <xAxis>
+                            <NumberAxis id="xaxis" lowerBound="1" upperBound="12.5" tickUnit="1"/>
+                        </xAxis>
+                        <yAxis>
+                            <NumberAxis id="yaxis" label="Minutes" lowerBound="0" upperBound="12.5" tickUnit="1"/>
+                        </yAxis>
+                    </LineChart>
                 </Tab>
             </TabPane>
         </SplitPane>
