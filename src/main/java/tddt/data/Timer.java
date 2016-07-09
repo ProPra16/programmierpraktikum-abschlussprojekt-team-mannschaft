@@ -42,7 +42,7 @@ public class Timer {
         this.c=c;
         this.now= LocalDateTime.now();
         this.clock.setId("clock");
-        this.babystepstime=LocalDateTime.now().withMinute((int)start).withSecond((long)((start-((int)start))*60));
+        this.babystepstime=LocalDateTime.now().withMinute((int)start).withSecond((int)((start-((int)start))*60));
         this.time = LocalDateTime.now().withMinute(0).withSecond(0);////!
         this.start();
 
