@@ -48,21 +48,23 @@ public class LogList {
 
     // delete alle Logs aus logs-Liste und alle Datein aus exercises-Ordner
     public void deleteAll() {
-        for (Log log : logs) {
-            deleteLast();
+        int size = logs.size();
+        for(int i = 0; i < size; i++){
+            this.deleteLast();
         }
     }
 
     // delete letzte Log aus logs-List und aus exercises-Ordner
     public void deleteLast() {
         // speichere Name von letzten Log aus der logs-List
-        String fileNameLastLog = logs.get(logs.size()-1 ).getTime().format(DateTimeFormatter.ofPattern("yyyy-MM-DD-HH-mm-ss"));
+        String fileNameLastLog = logs.get(logs.size()-1 ).getTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"));
 
         // delete letzte Log aus der logs-Liste
         logs.remove(logs.size()-1);
 
         // oeffne letzen Log-Datei aus exercises-Ordner
         File fileLastLog = new File(directoryPath, File.separator + fileNameLastLog);
+        fileLastLog.delete();
 
     }
 
