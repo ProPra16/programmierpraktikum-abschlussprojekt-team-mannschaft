@@ -4,6 +4,7 @@ import javafx.scene.control.Label;
 import main.java.tddt.data.Log;
 import main.java.tddt.data.LogList;
 import main.java.tddt.data.Timer;
+import main.java.tddt.gui.Controller;
 import vk.core.api.*;
 import vk.core.api.CompilerResult;
 import vk.core.api.TestResult;
@@ -31,6 +32,7 @@ public class Coordinator {
     private File logfile;
     Timer timer;
     private double babystepstime;
+    Controller conti;
 
     public Coordinator(String classname,  String testname){ //Anfangskonstuktor
         this.classname = classname;
@@ -42,12 +44,13 @@ public class Coordinator {
         this.testname = testname;
         this.phase = phase;
     }
-    public Coordinator(String classname, String testname, int phase, File file, Label lab){//Konstruktor zum Laden eines vorhandenen Logs
+    public Coordinator(String classname, String testname, int phase, File file, Label lab, Controller conti){//Konstruktor zum Laden eines vorhandenen Logs
         this.classname = classname;
         this.testname = testname;
         this.phase = phase;
         this.logfile = file;
         this.zeitlabel = lab;
+        this.conti = conti;
         timer = new Timer(lab);
     }
 
@@ -162,6 +165,7 @@ public class Coordinator {
         }
         else {
             //in Phase bleiben, sodass man nun wieder am Anfang der Phase ist, die man mit Babysteps gestartet hat
+            conti.timeoveratBabystepping();
             return logs.getLog(logs.size() - 1);
         }
     }
