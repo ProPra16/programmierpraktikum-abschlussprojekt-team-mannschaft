@@ -49,6 +49,7 @@ public class Coordinator {
         this.testname = testname;
         this.phase = phase;
         this.logfile = file;
+        this.logs = new LogList(file);
         this.zeitlabel = lab;
         this.conti = conti;
         timer = new Timer(lab);
@@ -118,7 +119,7 @@ public class Coordinator {
             //aktuellen Log hinzufügen
             LocalDateTime timers = timer.stop();
             try {
-                logs.addLog(new Log(this.phase, time, timers, classcontent, testcontent, "test"));
+                logs.addLog(new Log(tempphase, time, timers, classcontent, testcontent, ""));
                 if(this.babystepsactiv){
                     timer = new Timer(this.zeitlabel, this, this.babystepstime);
                 }
@@ -133,40 +134,33 @@ public class Coordinator {
     }
 
     //zurück zum Zustand des letzten Logs
-    public void BackToLastLog(){
-        logs.deleteLast(); //aktuellen Log löschen
-    }
     public Log lastLog(){
-        logs.deleteLast(); //aktuellen Log löschen
-        return logs.getLog(logs.size() - 1);
+        this.logs.deleteLast(); //aktuellen Log löschen
+        return this.logs.getLog(logs.size() - 1);
     }
     //logliste löschen
     public void deleteLog(){
-        logs.deleteAll();
+        this.logs.deleteAll();
     }
     //zu letzter Phase zurück
     public Log lastPhase(){
-        int tempphase = logs.getLog(logs.size()-1).getPhase();
-        this.BackToLastLog();
-        if(tempphase == logs.getLog(logs.size()-1).getPhase()){ //Log zurück bis es der letzte Log der letzten Phase ist
-            return this.lastPhase();
+        int tempphase = this.phase; //aktuelle phase
+        if(logs.size() == 0)return null;
+        while(tempphase == logs.getLog(logs.size()-1).getPhase()){ //Log zurück bis es der letzte Log der letzten Phase ist
+            this.logs.deleteLast();
         }
-        else {
-            this.phase = logs.getLog(logs.size()-1).getPhase();//Phase entsprechend aendern
-            return logs.getLog(logs.size() - 1);
-        }
+        this.phase = logs.getLog(logs.size() - 1).getPhase();//Phase entsprechend aendern
+        return logs.getLog(logs.size() - 1);
+
     }
 
     public void Babystepsover(){ //wenn die zeit in den Babysteps abgelaufen ist, dann an Anfang der Phase springen
-        int tempphase = logs.getLog(logs.size()-1).getPhase();
-        this.BackToLastLog();
-        if(tempphase == logs.getLog(logs.size()-1).getPhase()){ //Log zurück bis es der letzte Log der letzten Phase ist
-            this.Babystepsover();
+        int tempphase = this.phase; //aktuelle phase
+        while(tempphase == logs.getLog(logs.size()-1).getPhase()){ //Log zurück bis es der letzte Log der letzten Phase ist
+            this.logs.deleteLast();
         }
-        else {
-            //in Phase bleiben, sodass man nun wieder am Anfang der Phase ist, die man mit Babysteps gestartet hat
-            conti.timeoveratBabystepping(logs.getLog(logs.size() - 1));
-        }
+        //in Phase bleiben, sodass man nun wieder am Anfang der Phase ist, die man mit Babysteps gestartet hat
+        conti.timeoveratBabystepping(logs.getLog(logs.size() - 1));
     }
 
     public void setBabystepsActivated(boolean activ, double timing){
@@ -182,22 +176,23 @@ public class Coordinator {
         return babystepstime;
     }
 
-    public LocalDateTime[][] getPhaseTimes(){
-        List<LocalDateTime> phase1 = new ArrayList<LocalDateTime>();
-        List<LocalDateTime> phase2 = new ArrayList<LocalDateTime>();
-        List<LocalDateTime> phase3 = new ArrayList<LocalDateTime>();
-        for(int i = 0; i < logs.size()-1; i++){
-            if(logs.getLog(i).getPhase() == 1){
+    public ArrayList<LocalDateTime>[] getPhaseTimes(){
+        ArrayList<LocalDateTime> phase1 = new ArrayList<LocalDateTime>();
+        ArrayList<LocalDateTime> phase2 = new ArrayList<LocalDateTime>();
+        ArrayList<LocalDateTime> phase3 = new ArrayList<LocalDateTime>();
+        for(int i = 0; i < logs.size(); i++){
+            if((logs.getLog(i).getTimer() != null) && logs.getLog(i).getPhase() == 1){
                 phase1.add(logs.getLog(i).getTimer());
             }
-            else if(logs.getLog(i).getPhase() == 2){
+            else if((logs.getLog(i).getTimer() != null) && logs.getLog(i).getPhase() == 2){
                 phase2.add(logs.getLog(i).getTimer());
             }
-            else if(logs.getLog(i).getPhase() == 3){
+            else if((logs.getLog(i).getTimer() != null) && logs.getLog(i).getPhase() == 3){
                 phase3.add(logs.getLog(i).getTimer());
             }
         }
-        LocalDateTime[][] timertimetimes = {(LocalDateTime[]) phase1.toArray(), (LocalDateTime[])phase2.toArray(), (LocalDateTime[])phase3.toArray()};
+
+        ArrayList<LocalDateTime>[] timertimetimes = new ArrayList[] { phase1, phase2, phase3};
         return timertimetimes;
     }
 
