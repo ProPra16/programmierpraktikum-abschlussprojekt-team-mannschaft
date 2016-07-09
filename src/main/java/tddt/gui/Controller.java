@@ -19,7 +19,9 @@ import main.java.tddt.gui.dialogs.CreateExerciseDialog;
 import main.java.tddt.data.Log;
 import main.java.tddt.gui.dialogs.ShowLogDialog;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -162,18 +164,21 @@ public class Controller {
             File dest = new File(initialFile, this.classtitled.getText());
             try {
                 ProjectIO.saveProject(this.classtitled.getText(), this.descriptionpane.getText(), this.classpane.getText(), this.testpane.getText(), this.c.phase, this.c.getBabystepsActivated(), this.c.getBabystepsTime(), dest);
+                BufferedWriter classWriter = new BufferedWriter(new FileWriter(new File(this.initialFile, File.separator + this.classtitled.getText() + ".java")));
+                BufferedWriter testWriter = new BufferedWriter(new FileWriter(new File(this.initialFile, File.separator + this.testtitled.getText() + ".java")));
+                classWriter.write(this.classpane.getText());
+                testWriter.write(this.testpane.getText());
+                classWriter.close();
+                testWriter.close();
             } catch (Exception e) {
                 try {
                     new Alert(this.stage, Alert.SIMPEL_ALERT, "ERROR - Your project is incomplete");
                     return;
-                } catch (Exception d) {
-                }
+                } catch (Exception d) {}
             }
             try {
                 new Alert(this.stage, Alert.SIMPEL_ALERT, "Your project was saved to: " + "\n" + dest.getAbsolutePath());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            } catch (Exception e) {}
         }
     }
 
