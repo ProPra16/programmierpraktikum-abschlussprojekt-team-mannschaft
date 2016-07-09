@@ -1,4 +1,5 @@
-package test.java;
+
+
 
 import main.java.tddt.data.Log;
 import main.java.tddt.data.LogList;
@@ -22,7 +23,7 @@ public class LogTest {
     private JAXBContext context ;
 
     @Before public void init() throws JAXBException{
-        this.context = JAXBContext.newInstance(LogList.class);
+        this.context = JAXBContext.newInstance(Log.class);
     }
 
     @Test
@@ -31,20 +32,23 @@ public class LogTest {
 
 
 
-        String time = "2018-07-30 08:30";
-        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String time = "2016-07-04-16-12";
+        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
         LocalDateTime dateTime = LocalDateTime.parse(time, timeFormat);
 
-        String timer = "2018-10-30 08:30";
-        DateTimeFormatter timerFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String timer = "2016-06-28-17-53";
+        DateTimeFormatter timerFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm");
         LocalDateTime dateTimer = LocalDateTime.parse(timer, timerFormat);
 
-        Log log = new Log(2,dateTime,dateTimer,"this is a class text 3","this is a testtext3","this is a compiler Message 3");
-        LogList loglist = new LogList();
-        loglist.loadLoglist();
+        File file = new File(System.getProperty("user.home"), File.separator + "Logs");
+        file.mkdirs();
+
+        Log log = new Log(2,dateTime,dateTimer,"this is a class text ","this is a testtext","this is a compiler Message ");
+        LogList loglist = new LogList(file);
+
         loglist.addLog(log);
 
         System.out.println(loglist.getLog(0).getTime());
-        loglist.saveLoglist();
+
     }
 }

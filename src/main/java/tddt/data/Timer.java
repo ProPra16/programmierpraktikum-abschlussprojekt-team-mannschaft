@@ -59,8 +59,8 @@ public class Timer {
 
                 public void handle(long i) {
                     elapsedSeconds = Duration.between(now, LocalDateTime.now()).getSeconds();
-                    time.withMinutes(elapsedSeconds/60);
-                    time.withSeconds(elapsedSeconds % 60) ;
+                    time.withMinute((int)elapsedSeconds/60);
+                    time.withSecond((int)elapsedSeconds % 60) ;
 
                     if(c==null){
                         clock.setText(time.getMinute() + ":" + time.getSecond());
