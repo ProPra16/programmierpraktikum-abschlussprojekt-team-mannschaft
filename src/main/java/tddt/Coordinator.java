@@ -3,6 +3,7 @@ package main.java.tddt;
 import javafx.scene.control.Label;
 import main.java.tddt.data.Log;
 import main.java.tddt.data.LogList;
+import main.java.tddt.data.Timer;
 import vk.core.api.*;
 import vk.core.api.CompilerResult;
 import vk.core.api.TestResult;
@@ -15,18 +16,20 @@ import vk.core.internal.InternalResult;
 import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Collection;
+import java.util.List;
 
 public class Coordinator {
     private String classname; //namen bei einem Coordinator, der für eine Session ist, festgelegt
     private String testname;
     public int phase; //wird 1,2 oder 3 also red, green oder refactor
-    //public Label zeitlabel;  //gui verbindung
+    public Label zeitlabel;  //gui verbindung
     private boolean babystepsactiv = false;
     public LogList logs;
     private File logfile;
-    LocalDateTime timer = LocalDateTime.now();
+    Timer timer;
     private double babystepstime;
 
     public Coordinator(String classname,  String testname){ //Anfangskonstuktor
@@ -39,18 +42,15 @@ public class Coordinator {
         this.testname = testname;
         this.phase = phase;
     }
-    public Coordinator(String classname, String testname, int phase, File file){//Konstruktor zum Laden eines vorhandenen Logs
+    public Coordinator(String classname, String testname, int phase, File file, Label lab){//Konstruktor zum Laden eines vorhandenen Logs
         this.classname = classname;
         this.testname = testname;
         this.phase = phase;
         this.logfile = file;
+        this.zeitlabel = lab;
+        timer = new Timer(lab);
     }
-    /*public Coordinator(String classname,  String testname, int phase, Label label){ //Konstruktor zum Laden einer bestimmten phase und übergebenem Label
-        this.classname = classname;
-        this.testname = testname;
-        this.phase = phase;
-        this.zeitlabel = label;
-    }*/
+
     public String compile(String classcontent, String testcontent){
         String result = ""; //Compilemessages zurückgeben
         CompilationUnit testcompile = new CompilationUnit(testname, testcontent, true);
@@ -79,7 +79,7 @@ public class Coordinator {
         LocalDateTime time = LocalDateTime.now();
         //aktuellen Log hinzufügen
         try {
-            logs.addLog(new Log(this.phase, time, timer, classcontent, testcontent, result)); //timer nur bei phasenwechsel wichtig
+            logs.addLog(new Log(this.phase, time, null, classcontent, testcontent, result)); //timer nur bei phasenwechsel wichtig
         }
         catch(JAXBException j){}
         return result;
@@ -113,16 +113,20 @@ public class Coordinator {
         LocalDateTime time = LocalDateTime.now();
         if(this.phase != tempphase){//Beim Wechsel der Phase Log hinzufügen, timer speichern und neu starten für die neue Phase
             //aktuellen Log hinzufügen
+            LocalDateTime timers = timer.stop();
             try {
-                logs.addLog(new Log(this.phase, time, time, classcontent, testcontent, "test"));
-                return time;
+                logs.addLog(new Log(this.phase, time, timers, classcontent, testcontent, "test"));
+                if(this.babystepsactiv){
+                    timer = new Timer(this.zeitlabel, this, this.babystepstime);
+                }
+                else{
+                    timer = new Timer(this.zeitlabel);
+                }
+                return timers;
             }
             catch(JAXBException j){}
-            //Funktionen noch nicht vorhanden
-            //timer.stop
-            //timer = new Timer
         }
-        return time;
+        return null;
     }
 
     //zurück zum Zustand des letzten Logs
@@ -176,9 +180,22 @@ public class Coordinator {
     }
 
     public LocalDateTime[][] getPhaseTimes(){
-        LocalDateTime[][] times = new LocalDateTime[3][4];
-        times[0][1] = LocalDateTime.now();
-        return times;
+        List<LocalDateTime> phase1 = new ArrayList<LocalDateTime>();
+        List<LocalDateTime> phase2 = new ArrayList<LocalDateTime>();
+        List<LocalDateTime> phase3 = new ArrayList<LocalDateTime>();
+        for(int i = 0; i < logs.size()-1; i++){
+            if(logs.getLog(i).getPhase() == 1){
+                phase1.add(logs.getLog(i).getTimer());
+            }
+            else if(logs.getLog(i).getPhase() == 2){
+                phase2.add(logs.getLog(i).getTimer());
+            }
+            else if(logs.getLog(i).getPhase() == 3){
+                phase3.add(logs.getLog(i).getTimer());
+            }
+        }
+        LocalDateTime[][] timertimetimes = {(LocalDateTime[]) phase1.toArray(), (LocalDateTime[])phase2.toArray(), (LocalDateTime[])phase3.toArray()};
+        return timertimetimes;
     }
 
 }
