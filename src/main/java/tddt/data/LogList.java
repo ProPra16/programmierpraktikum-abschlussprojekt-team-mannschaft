@@ -71,6 +71,7 @@ public class LogList {
         else {
             System.out.println("Fehler beim Log-deleten");
         }
+
     }
 
     public void setLogs(List<Log> logs) {
@@ -84,5 +85,9 @@ public class LogList {
     public List<Log> getLogs() {
         return logs;
 
+    }
+
+    public int size(){
+        return logs.size();
     }
 }
