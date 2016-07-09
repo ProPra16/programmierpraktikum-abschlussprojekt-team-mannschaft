@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.annotation.XmlType;
 import java.io.File;
 
 /**
@@ -15,7 +16,7 @@ import java.io.File;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
-
+@XmlType(propOrder = {" title", "description", "classtext", "testtext"})
 public class Exercise {
 
     private String title;
