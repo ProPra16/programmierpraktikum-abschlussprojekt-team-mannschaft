@@ -17,8 +17,8 @@ public class CloseController extends AlertController {
         closes with saving
      */
     public void save(ActionEvent actionEvent) {
-        this.controller.closeOutput();
         this.stage.close();
+        this.controller.closeOutput();
     }
 
     /*
