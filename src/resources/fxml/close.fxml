@@ -7,9 +7,8 @@
 
 <GridPane fx:id="mainpane" fx:controller="main.java.tddt.gui.dialogs.CloseController" xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
 
-    <Label text="You are about to close TDDT without saving your work!" prefWidth="320" GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" prefHeight="80" wrapText="true" GridPane.columnSpan="3"/>
+    <Label text="You are about to close TDDT without saving your work!" prefWidth="210" GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" prefHeight="80" wrapText="true" GridPane.columnSpan="2"/>
 
-    <Button text="OK" GridPane.columnIndex="2" prefWidth="100" GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" onAction="#ok"/>
     <Button text="Save" GridPane.columnIndex="1" prefWidth="100" GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" onAction="#save"/>
     <Button text="Cancel" GridPane.rowIndex="2" prefWidth="100" GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" onAction="#cancel"/>
 
