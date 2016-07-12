@@ -9,10 +9,10 @@
 
 <GridPane fx:id="mainpane" fx:controller="main.java.tddt.gui.dialogs.BabystepsController" xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
 
-    <Label text="Babysteps activated:"/>
+    <Label text="Babysteps activated:" wrapText="true" prefHeight="40" />
 
     <CheckBox fx:id="checkbox" GridPane.columnIndex="1" onAction="#handleCheckBox"/>
-    <Label fx:id="timelabel" id="inactivelabel" text="Time per phase in minutes:" prefWidth="200" GridPane.rowIndex="1"/>
+    <Label fx:id="timelabel" id="inactivelabel" text="Time per phase in minutes:" wrapText="true" prefHeight="40" prefWidth="200" GridPane.rowIndex="1"/>
     <Spinner fx:id="time" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
     <Button text="Apply" fx:id="apply" id="inactivebutton" GridPane.columnIndex="1" prefWidth="200" GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" onAction="#apply"/>
     <Button text="Cancel" GridPane.rowIndex="2" prefWidth="200" GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS" onAction="#cancel"/>
