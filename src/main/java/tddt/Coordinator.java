@@ -52,7 +52,7 @@ public class Coordinator {
         this.logs = new LogList(file);
         this.zeitlabel = lab;
         this.conti = conti;
-        timer = new Timer(lab);
+        timer = new Timer(lab, this);
     }
 
     public String compile(String classcontent, String testcontent){
@@ -124,7 +124,7 @@ public class Coordinator {
                     timer = new Timer(this.zeitlabel, this, this.babystepstime);
                 }
                 else{
-                    timer = new Timer(this.zeitlabel);
+                    timer = new Timer(this.zeitlabel, this);
                 }
                 return timers;
             }
@@ -150,6 +150,7 @@ public class Coordinator {
             this.logs.deleteLast();
         }
         this.phase = logs.getLog(logs.size() - 1).getPhase();//Phase entsprechend aendern
+        this.timer = new Timer(this.zeitlabel, this);
         return logs.getLog(logs.size() - 1);
 
     }
