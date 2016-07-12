@@ -40,7 +40,7 @@ public class BabystepsController {
      */
     public void apply(ActionEvent actionEvent) {
         if((this.checkbox.isSelected() && this.changedMins()) || this.changedstate) {
-            this.c.babystepsOutput(this.checkbox.isSelected(), Double.parseDouble(this.minutes));
+            this.c.babystepsOutput(this.checkbox.isSelected(), (double) (this.time.getValue()));
             this.stage.close();
         }
     }
@@ -84,7 +84,7 @@ public class BabystepsController {
      */
     private boolean changedMins() {
         try {
-            return !(Double.parseDouble(this.minutes) == Double.parseDouble(this.time.getEditor().getText()));
+            return !(Double.parseDouble(this.minutes) == (double) (this.time.getValue()));
         }
         catch(Exception e){ return false; }
     }
@@ -97,7 +97,7 @@ public class BabystepsController {
         this.c = c;
         this.active = active;
         this.checkbox.setSelected(this.active);
-        this.minutes = String.valueOf(minutes);
+        this.minutes = "" + minutes;
         this.time.getEditor().setText(String.valueOf(minutes));
         this.time.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(0.5, 10.0, minutes, 0.5));
         if(this.active){
@@ -109,12 +109,12 @@ public class BabystepsController {
             this.time.getEditor().setId("inactivespinner");
         }
         time.valueProperty().addListener((observable, oldValue, newValue) -> {
-                if(this.minutes.equals(String.valueOf(newValue)) && !this.changedstate){
-                    this.apply.setId("inactivebutton");
-                }
-                else {
-                    this.apply.setId(null);
-                }
+            if(this.minutes.equals("" + newValue) && !this.changedstate){
+                this.apply.setId("inactivebutton");
+            }
+            else {
+                this.apply.setId(null);
+            }
         });
     }
 }

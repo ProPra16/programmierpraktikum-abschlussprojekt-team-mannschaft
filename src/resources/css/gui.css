@@ -162,7 +162,15 @@
 }
 
 #clockred{
+    -fx-border-style: solid;
+    -fx-border-width: 100%;
+    -fx-border-color: #dddddd;
+    -fx-border-radius: 8px;
     -fx-text-fill: #ff0000;
+    -fx-font-weight: bold;
+    -fx-font-size: 10pt;
+    -fx-padding: 0px 5px 0px 5px;
+    -fx-alignment: center;
 }
 
 #red{

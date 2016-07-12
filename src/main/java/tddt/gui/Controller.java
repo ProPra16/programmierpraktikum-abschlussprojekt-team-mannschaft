@@ -151,7 +151,7 @@ public class Controller {
             this.c = new Coordinator(project.getTitle(), project.getTitle() + "Test", project.getPhase(), new File(chosen, File.separator + "Logs"), this.clock, this);
             this.phaseCounter = 0;
             this.setPhase(project.getPhase());
-            this.graphInit(this.c.getPhaseTimes());
+            this.graphInit(this.c.getPhaseTimes(), project.getPhase());
         } catch(Exception e) {}
     }
 
@@ -409,28 +409,31 @@ public class Controller {
     /*
         initializes the tracking graph, after opening an existing project
      */
-    private void graphInit(ArrayList<LocalDateTime>[] phaseTimes) {
+    private void graphInit(ArrayList<LocalDateTime>[] phaseTimes, int phase) {
         this.graphInit();
-        for(int i = 0; i < phaseTimes[0].size(); i++){
-            this.phaseCounter++;
-            int min = phaseTimes[0].get(i).getMinute();
-            int sec = phaseTimes[0].get(i).getSecond();
-            double timer = min + sec/60.0;
-            this.phases[0].getData().add(new XYChart.Data<>((double) this.phaseCounter, timer));
-        }
-        for(int i = 0; i < phaseTimes[1].size(); i++){
-            this.phaseCounter++;
-            int min = phaseTimes[1].get(i).getMinute();
-            int sec = phaseTimes[1].get(i).getSecond();
-            double timer = min + sec/60.0;
-            this.phases[1].getData().add(new XYChart.Data<>((double) this.phaseCounter, timer));
-        }
-        for(int i = 0; i < phaseTimes[2].size(); i++){
-            this.phaseCounter++;
-            int min = phaseTimes[2].get(i).getMinute();
-            int sec = phaseTimes[2].get(i).getSecond();
-            double timer = min + sec/60.0;
-            this.phases[2].getData().add(new XYChart.Data<>((double) this.phaseCounter, timer));
+        int maxSize = Math.max(phaseTimes[0].size(), Math.max(phaseTimes[1].size(), phaseTimes[2].size()));
+        for(int i = 0; i < maxSize; i++){
+            try {
+                this.phaseCounter++;
+                int min = phaseTimes[phase-1].get(i).getMinute();
+                int sec = phaseTimes[phase-1].get(i).getSecond();
+                double timer = min + sec / 60.0;
+                this.phases[phase-1].getData().add(new XYChart.Data<>((double) this.phaseCounter, timer));
+            } catch (Exception e) {}
+            try {
+                this.phaseCounter++;
+                int min = phaseTimes[phase%3].get(i).getMinute();
+                int sec = phaseTimes[phase%3].get(i).getSecond();
+                double timer = min + sec / 60.0;
+                this.phases[phase%3].getData().add(new XYChart.Data<>((double) this.phaseCounter, timer));
+            } catch (Exception e) {}
+            try {
+                this.phaseCounter++;
+                int min = phaseTimes[(phase+1)%3].get(i).getMinute();
+                int sec = phaseTimes[(phase+1)%3].get(i).getSecond();
+                double timer = min + sec / 60.0;
+                this.phases[(phase+1)%3].getData().add(new XYChart.Data<>((double) this.phaseCounter, timer));
+            } catch (Exception e) {}
         }
     }
 
