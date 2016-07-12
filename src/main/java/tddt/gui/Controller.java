@@ -296,9 +296,14 @@ public class Controller {
         asks the user, if he/she wants to save the project before closing the application
      */
     public void close() {
-        try{
-            new Alert(this.stage, this, Alert.CLOSE);
-        } catch (Exception e) {}
+        if(this.c != null) {
+            try {
+                new Alert(this.stage, this, Alert.CLOSE);
+            } catch (Exception e) {}
+        }
+        else{
+            this.stage.close();
+        }
     }
 
 
@@ -317,14 +322,9 @@ public class Controller {
     /*
         corresponding method: close()
      */
-    public void closeOutput(boolean save){
-        if(save){
-            this.saveProject();
-            this.stage.close();
-        }
-        else {
-            this.stage.close();
-        }
+    public void closeOutput(){
+        this.saveProject();
+        this.stage.close();
     }
 
     /*

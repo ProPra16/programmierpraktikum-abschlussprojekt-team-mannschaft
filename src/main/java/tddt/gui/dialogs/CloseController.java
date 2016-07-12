@@ -14,19 +14,11 @@ import main.java.tddt.gui.Controller;
 public class CloseController extends AlertController {
 
     /*
-        closes without saving
-     */
-    public void ok(ActionEvent actionEvent) {
-        this.controller.closeOutput(false);
-        this.stage.close();
-    }
-
-    /*
         closes with saving
      */
     public void save(ActionEvent actionEvent) {
-        this.controller.closeOutput(true);
         this.stage.close();
+        this.controller.closeOutput();
     }
 
     /*
