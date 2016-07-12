@@ -66,9 +66,9 @@ public class Coordinator {
         TestResult testresult = compiler.getTestResult();
         if(compresult.hasCompileErrors()){
             Collection<CompileError> errors = compresult.getCompilerErrorsForCompilationUnit(classcompile);
-            for(CompileError e : errors)result += e.getMessage() + "\n";
+            for(CompileError e : errors)result += e.toString() + "\n";
             Collection<CompileError> testerrors = compresult.getCompilerErrorsForCompilationUnit(testcompile);
-            for(CompileError e : testerrors)result += e.getMessage() + "\n";
+            for(CompileError e : testerrors)result += e.toString() + "\n";
         }
         else {
             result += "Compiled successfully" + "\n";
