@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><exercise><title>Yolo</title><description>Implementieren sie ein Programm, welches einen String als Benutzereingabe entgegennimmt 
+und lassen sie den String " Yolo " vor dem String aus der Benutzereingabe im Terminal ausgeben.
+Zum Beispiel: input: Ich habe die die Hose voll. ----&gt; output : Yolo Ich habe die Hose voll. </description><classtext>public class Yolo{
+
+
+}</classtext><testtext>import static org.junit.Assert.*;
+import org.junit.*;
+
+public class YoloTest {
+
+	@Test
+	public void firsttest(){
+		assertEquals(1,2);
+	}
+}</testtext></exercise>

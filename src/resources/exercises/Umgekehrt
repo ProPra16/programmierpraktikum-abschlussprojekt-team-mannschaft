@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><exercise><title>Umgekehrt</title><description>Entwickeln sie eine Programm, welches einen String entgegennimmt (egal ob als Benutzereingabe oder als feste Variable im Programm)
+und  diese dann umgedreht wieder gibt. Dabei sollen alle Buchstaben, außer dem ersten klein sein. 
+Der erste Buchstabe soll groß im Terminal ausgegeben werden.
+Zum Beispiel: input: Peter   ------&gt; output: Retep</description><classtext>public class Umgekehrt{
+
+
+}</classtext><testtext>import static org.junit.Assert.*;
+import org.junit.*;
+
+public class UmgekehrtTest {
+
+	@Test
+	public void firsttest(){
+		assertEquals(1,2);
+	}
+}</testtext></exercise>

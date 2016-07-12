@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><exercise><title>UzuG</title><description>Schreiben sie eine simples Programm, 
+dass einen Wert von Atomarer Masseneinheit (u) zu Gramm(g) umrechnet.
+Der u-Wert soll ein vom Benutzer angegeben werden.
+Auf dem Terminal soll die passende Gramm Zahl ausgegeben werden (so genau wie möglich).
+</description><classtext>public class UzuG{
+
+
+}</classtext><testtext>import static org.junit.Assert.*;
+import org.junit.*;
+
+public class UzuGTest {
+
+	@Test
+	public void firsttest(){
+		assertEquals(1,2);
+	}
+}</testtext></exercise>
