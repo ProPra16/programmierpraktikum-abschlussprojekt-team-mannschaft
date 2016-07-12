@@ -52,6 +52,7 @@ public class Coordinator {
         this.logs = new LogList(file);
         this.zeitlabel = lab;
         this.conti = conti;
+        this.babystepstime = 3;//Zeit defaultmäßig auf 3 min
         timer = new Timer(lab, this);
     }
 
@@ -151,7 +152,12 @@ public class Coordinator {
         }
         this.phase = logs.getLog(logs.size() - 1).getPhase();//Phase entsprechend aendern
         LocalDateTime temp = this.timer.stop();
-        this.timer = new Timer(this.zeitlabel, this);
+        if(this.babystepsactiv){ //Timer auch hier stoppen und neu initialisieren, je nachedem, ob Babysteps oder nicht
+            timer = new Timer(this.zeitlabel, this, this.babystepstime);
+        }
+        else{
+            timer = new Timer(this.zeitlabel, this);
+        }
         return logs.getLog(logs.size() - 1);
 
     }
@@ -162,9 +168,14 @@ public class Coordinator {
             this.logs.deleteLast();
         }
         //in Phase bleiben, sodass man nun wieder am Anfang der Phase ist, die man mit Babysteps gestartet hat
-        conti.timeoveratBabystepping(logs.getLog(logs.size() - 1));
         LocalDateTime temp = this.timer.stop();
-        this.timer = new Timer(this.zeitlabel, this);
+        if(this.babystepsactiv){
+            timer = new Timer(this.zeitlabel, this, this.babystepstime);
+        }
+        else{
+            timer = new Timer(this.zeitlabel, this);
+        }
+        conti.timeoveratBabystepping(logs.getLog(logs.size() - 1));
     }
 
     public void setBabystepsActivated(boolean activ, double timing){
