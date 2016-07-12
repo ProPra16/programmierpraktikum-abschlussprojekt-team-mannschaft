@@ -150,6 +150,7 @@ public class Coordinator {
             this.logs.deleteLast();
         }
         this.phase = logs.getLog(logs.size() - 1).getPhase();//Phase entsprechend aendern
+        LocalDateTime temp = this.timer.stop();
         this.timer = new Timer(this.zeitlabel, this);
         return logs.getLog(logs.size() - 1);
 
@@ -162,6 +163,8 @@ public class Coordinator {
         }
         //in Phase bleiben, sodass man nun wieder am Anfang der Phase ist, die man mit Babysteps gestartet hat
         conti.timeoveratBabystepping(logs.getLog(logs.size() - 1));
+        LocalDateTime temp = this.timer.stop();
+        this.timer = new Timer(this.zeitlabel, this);
     }
 
     public void setBabystepsActivated(boolean activ, double timing){
