@@ -11,6 +11,7 @@ header{
 }
 
 ul {
+	border-radius: 25px;
 	float: right;
     list-style-type: none;
     margin: 0;
@@ -23,6 +24,9 @@ ul {
     width: 300px;
     opacity: 0.7;
     height: 325px;
+}
+li a{
+	padding: 5px;
 }
 
 img {
