@@ -53,10 +53,10 @@ public class TestingCoordinator {
     }
 
     @Test
-    public void notcompilingInphase1(){
+    public void testedmethodnotwrittenInphase1(){
         Coordinator coor = new Coordinator("Bar", "BarTest");
         //für die Bedingung muss es fehlschlagende Tests geben
-        String methodfortestnotdefined = "public class Bar{}";
+        String methodfortestnotdefined = "public class Bar{}";//zu testende Methode noch nicht vorhanden
         try {
             LocalDateTime qwe = coor.nextPhase(methodfortestnotdefined, testcontent);
         }

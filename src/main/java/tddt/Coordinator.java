@@ -99,8 +99,25 @@ public class Coordinator {
         TestResult testresult = compiler.getTestResult();
         int tempphase = this.phase;  //zum Vergleichen, ob die Phase gewechselt werden konnte
         //phase RED, also phase = 1
-        if(phase == 1 && compresult.hasCompileErrors() ){//Bedingung auch erfüllt, wenn es Code gibt ,der nicht kompiliert
-            phase = 2;
+        if(phase == 1 && compresult.hasCompileErrors() ){//Bedingung auch erfüllt, wenn es nicht kompiliert, da es die zu testende Methode noch nicht gibt
+            Collection<CompileError> errors = compresult.getCompilerErrorsForCompilationUnit(classcompile);
+            Collection<CompileError> testerrors = compresult.getCompilerErrorsForCompilationUnit(testcompile);
+            if(errors.size() == 0 && testerrors.size() == 1) {
+                String[] theerror;
+                String err = "";
+                for(CompileError e : testerrors)err = e.toString();//kein get() bei collections, also iterieren
+                theerror = err.split("\\s+");
+                int richtigererror = 0;
+                for(int i = 0; i < theerror.length; i++ ){
+                    if(theerror[i].equals("symbol") | theerror[i].equals("find") | theerror[i].equals("symbol:") | theerror[i].equals("method")){
+                        richtigererror++; //muss am Ende 4, jedes wort einmal im Methode nicht vorhanden Error
+                    }
+                }
+                if(richtigererror == 4){ //dann ist es der cannot find methode error und es kann zu GREEN gewechselt werden
+                    phase = 2;
+                }
+
+            }
         }
         else if(!compresult.hasCompileErrors()) {
             //phase GREEN also phase 2
