@@ -44,7 +44,9 @@ public class ShowLogController {
     public void init(Stage stage, Log log){
         this.stage = stage;
         this.date.setText(log.getTime().format(DateTimeFormatter.ofPattern("dd.MM.yyyy - HH:mm:ss")));
-        this.timer.setText(log.getTime().format(DateTimeFormatter.ofPattern("mm:ss")));
+        try {
+            this.timer.setText(log.getTimer().format(DateTimeFormatter.ofPattern("mm:ss")));
+        } catch (Exception e){}
         this.classfile.setText(log.getClassText());
         this.testfile.setText(log.getTestText());
         this.compile.setText(log.getCompileMessage());
