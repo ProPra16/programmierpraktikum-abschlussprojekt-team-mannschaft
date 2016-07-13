@@ -304,7 +304,7 @@ public class Controller {
         Desktop desktop = Desktop.getDesktop();
         try{
             desktop.open(new File("src/resources/manual/manual.html"));
-        } catch (Exception oError) {}
+        } catch (Exception e) {}
     }
 
     /*
