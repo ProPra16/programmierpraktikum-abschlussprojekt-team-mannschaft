@@ -75,10 +75,10 @@ public class Controller {
         if this is the case it additionally creates a copy of the exercise-catalog out of the projects resources
      */
     public Controller(){
-        this.initialFile = new File(System.getProperty("user.home"), ".TestDrivenDevelopmentTrainer");
+        this.initialFile = new File(System.getProperty("user.home"), "TestDrivenDevelopmentTrainer");
         if(!this.initialFile.exists()) {
             this.initialFile.mkdirs();
-            File exec = new File(initialFile, "exercises");
+            File exec = new File(initialFile, ".exercises");
             try{
                 new CreateExerciseCatalog(new File("src/resources/exercises"), exec);
 
@@ -103,7 +103,7 @@ public class Controller {
      */
     public void selectExercise() {
         try {
-            File exec = new File(initialFile, "exercises");
+            File exec = new File(initialFile, ".exercises");
             FileChooser choose = new FileChooser();
             choose.setInitialDirectory(exec);
             choose.setTitle("Select Exercise");
