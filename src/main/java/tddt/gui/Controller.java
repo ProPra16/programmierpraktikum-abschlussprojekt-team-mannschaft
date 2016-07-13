@@ -2,10 +2,13 @@ package main.java.tddt.gui;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -19,9 +22,11 @@ import main.java.tddt.gui.dialogs.CreateExerciseDialog;
 import main.java.tddt.data.Log;
 import main.java.tddt.gui.dialogs.ShowLogDialog;
 
+import java.awt.*;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -290,6 +295,16 @@ public class Controller {
         else{
             this.mainSplitPane.setDividerPosition(0,0.6);
         }
+    }
+
+    /*
+        opens the manual
+     */
+    public void manual() {
+        Desktop desktop = Desktop.getDesktop();
+        try{
+            desktop.open(new File("src/resources/manual/manual.html"));
+        } catch (Exception oError) {}
     }
 
     /*

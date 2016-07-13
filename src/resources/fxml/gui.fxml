@@ -46,6 +46,7 @@
         <Label fx:id="clockpic" prefHeight="20" prefWidth="20"/>
         <Label prefWidth="5"/>
         <Label fx:id="clock" text="00:00"/>
+        <Button text="Manual" onAction="#manual"/>
     </HBox>
     <SplitPane fx:id="mainSplitPane" dividerPositions="1.0" orientation="VERTICAL" GridPane.rowIndex="1">
         <SplitPane orientation="HORIZONTAL" minHeight="0">
