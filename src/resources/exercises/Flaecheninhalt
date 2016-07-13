@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><exercise><title>Flaecheninhalt</title><description>Erstellen sie ein Programm, welches den Flaecheninhalt von einer quadratischen Flaeche berechnet.
-Hierfuer sollen vom Benutzer zwei double Werte in einer Benutzereingabe abgefragt werden,
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><exercise><title>Flaecheninhalt</title><description>Erstellen sie eine Funktion, welche den Flaecheninhalt von einer quadratischen Flaeche berechnet.
+Hierfuer sollen vom Benutzer zwei double Werte als Uebergabeparameter abgefragt werden,
 welche dann zur Berechnung des Flaecheninhaltes verwenndet werden sollen.
 Lassen sie das Ergebniss gefolgt vom String "m^2" im Terminal ausgeben.</description><classtext>public class Flaecheninhalt{
 

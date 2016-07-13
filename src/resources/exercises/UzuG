@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><exercise><title>UzuG</title><description>Schreiben sie eine simples Programm, 
-dass einen Wert von Atomarer Masseneinheit (u) zu Gramm(g) umrechnet.
-Der u-Wert soll ein vom Benutzer angegeben werden.
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><exercise><title>UzuG</title><description>Schreiben sie eine simple Funktion, 
+die einen Wert von Atomarer Masseneinheit (u) zu Gramm(g) umrechnet.
+Der u-Wert soll ein vom Benutzer angegeben werden (Uebergabeparameter).
 Auf dem Terminal soll die passende Gramm Zahl ausgegeben werden (so genau wie möglich).
 </description><classtext>public class UzuG{
 

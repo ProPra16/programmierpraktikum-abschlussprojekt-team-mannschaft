@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><exercise><title>Anders</title><description>Anders Celsius wa rein schwedischer Mathematiker und Physiker.
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><exercise><title>Anders</title><description>Anders Celsius war ein schwedischer Mathematiker und Physiker.
 Er definierte die nach ihm benannte Temperatureinteilung Grad Celsius.
-Ihre Aufgabe ist es nun ein Programm zu implementieren, welches zur Umrechnung von
+Ihre Aufgabe ist es nun eine Funktion zu implementieren, welche zur Umrechnung von
 Grad Fahrenheit nach Grad Celsius verwendet werden soll.</description><classtext>public class Anders{
 
 

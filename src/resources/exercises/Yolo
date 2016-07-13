@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><exercise><title>Yolo</title><description>Implementieren sie ein Programm, welches einen String als Benutzereingabe entgegennimmt 
-und lassen sie den String " Yolo " vor dem String aus der Benutzereingabe im Terminal ausgeben.
-Zum Beispiel: input: Ich habe die die Hose voll. ----&gt; output : Yolo Ich habe die Hose voll. </description><classtext>public class Yolo{
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><exercise><title>Yolo</title><description>Implementieren sie eine Funktion, welche einen String als Uebergabeparameter entgegennimmt 
+und lassen sie den String " Yolo " vor dem Uebergabeparameter im Terminal ausgeben.
+Zum Beispiel: Uebergabeparameter: Ich habe die die Hose voll. ----&gt; Rueckgabewert : Yolo Ich habe die Hose voll. </description><classtext>public class Yolo{
 
 
 }</classtext><testtext>import static org.junit.Assert.*;
