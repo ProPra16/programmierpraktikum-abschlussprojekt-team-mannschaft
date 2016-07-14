@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><exercise><title>Wahrscheinlich</title><description>Schreibt eine Funktion,
+welches mit einer Wahrscheinlichkeit von 31% "Gewonnen!" 
+und ansonsten "Verloren!" als Rueckgabewert liefert.</description><classtext>public class Wahrscheinlich{
+
+
+}</classtext><testtext>import static org.junit.Assert.*;
+import org.junit.*;
+
+public class WahrscheinlichTest {
+
+	@Test
+	public void firsttest(){
+		assertEquals(1,2);
+	}
+}</testtext></exercise>
