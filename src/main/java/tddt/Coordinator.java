@@ -138,7 +138,7 @@ public class Coordinator {
             LocalDateTime timers = timer.stop();
             try {
                 logs.addLog(new Log(tempphase, time, timers, classcontent, testcontent, ""));
-                if(this.babystepsactiv){
+                if(this.babystepsactiv && this.phase != 3){ //Im Refactorn keine Babysteps
                     timer = new Timer(this.zeitlabel, this, this.babystepstime);
                 }
                 else{
