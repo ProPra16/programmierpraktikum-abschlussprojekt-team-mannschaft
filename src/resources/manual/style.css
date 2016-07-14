@@ -1,4 +1,4 @@
-h3{
+h3, a{
 	font-style: italic;
 	}
 body{
@@ -8,6 +8,9 @@ body{
 header{
       text-align : center;
 
+}
+#leiste a{
+	text-decoration: none;
 }
 
 ul {
