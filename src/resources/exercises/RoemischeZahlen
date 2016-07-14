@@ -1,0 +1,15 @@
+<?xml version=1.0" encoding="UTF-8" standalone="yes"?><exrcise><title>RömischeZahl</title><description>Implementieren Sie eine Funktion die arabische Zahlen in römische Zahlen konvertiert.
+Der Rückgabewert soll ein String der zu römisch konvertierten Zahl sein.
+Beispiel: Parameter: 22   Rückgabewert: XXII</description><classtext>public class Primfaktorzerlegung{
+
+
+}</classtext><testtext>import static org.junit.Assert.*;
+import org.junit.*;
+
+public class PrimfaktorzerlegungTest {
+
+    @Test
+    public void firsttest(){
+        assertEquals(1,2);
+    }
+}</testtext></exercise>
