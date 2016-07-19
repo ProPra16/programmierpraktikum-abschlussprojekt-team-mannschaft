@@ -1,12 +1,16 @@
 package test.java;
 
+import javafx.embed.swing.JFXPanel;
 import javafx.scene.control.Label;
 import main.java.tddt.Coordinator;
 import main.java.tddt.data.Timer;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
+import javax.swing.*;
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
 import java.time.LocalDateTime;
 
 import static org.junit.Assert.assertNotNull;
@@ -14,19 +18,21 @@ import static org.junit.Assert.assertNotNull;
 public class TimerTest{
 
     private JAXBContext test;
-    /*@Before
+    @Before
     public void init() throws JAXBException {
         this.test = JAXBContext.newInstance(Timer.class);
-    }*/
-
-    @Test //teste die stop() methode
+        SwingUtilities.invokeLater(() -> {
+            new JFXPanel();
+        });
+    }
+    @Test //teste die stop() methode min
     public void firstTest() {
         Label time = new Label();
         Coordinator c = new Coordinator("","");
         LocalDateTime ldt = LocalDateTime.now();
         Timer timer = new Timer(time,c , ldt);
 
-        Assert.assertTrue(timer.stop().equals(ldt.getMinute() + ldt.getSecond()));
+        Assert.assertTrue(timer.stop().getMinute() == ldt.getMinute());
     }
 
     @Test //test wird etwas zurück gegeben?
@@ -40,53 +46,14 @@ public class TimerTest{
         assertNotNull(t, timer.stop());
     }
 
-
-
-
-
-    /*
-    // es gibt natuerlich noch mehr Assertions, mit den hier genannten kann man aber schonmal viel anfangen
-    @Test
+    @Test //teste die stop() methode sec
     public void thirdTest() {
-        Timer timer = new Timer(Label time, Coordinator c);
+        Label time = new Label();
+        Coordinator c = new Coordinator("","");
+        LocalDateTime ldt = LocalDateTime.now();
+        Timer timer = new Timer(time,c , ldt);
 
-        // assertTrue, um einen Ausdruck auszuwerten welcher TRUE zurückgeben soll
-        assertTrue(60 == exampleUnit.doSomething(55));
-
-        assertTrue("5".equals(exampleUnit.doSomethingElse()));
-
-        // analog dazu assertFalse
-        assertFalse(213 == exampleUnit.doSomething(12));
-
-
+        Assert.assertTrue(timer.stop().getSecond() == ldt.getSecond());
     }
-    @Test
-    public void fourthTest() {
-        Timer timer = new Timer(Label time, Coordinator c);
-
-        // assertTrue, um einen Ausdruck auszuwerten welcher TRUE zurückgeben soll
-        assertTrue(60 == exampleUnit.doSomething(55));
-
-        assertTrue("5".equals(exampleUnit.doSomethingElse()));
-
-        // analog dazu assertFalse
-        assertFalse(213 == exampleUnit.doSomething(12));
-
-
-    }
-    @Test
-    public void fifthTest() {
-        Timer timer = new Timer(Label time, Coordinator c);
-
-        // assertTrue, um einen Ausdruck auszuwerten welcher TRUE zurückgeben soll
-        assertTrue(60 == exampleUnit.doSomething(55));
-
-        assertTrue("5".equals(exampleUnit.doSomethingElse()));
-
-        // analog dazu assertFalse
-        assertFalse(213 == exampleUnit.doSomething(12));
-
-
-    }*/
 
 }
