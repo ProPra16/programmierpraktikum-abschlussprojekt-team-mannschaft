@@ -3,6 +3,7 @@
 
 import main.java.tddt.data.Log;
 import main.java.tddt.data.LogList;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -51,4 +52,34 @@ public class LogTest {
         System.out.println(loglist.getLog(0).getTime());
 
     }
+
+
+    @Test //getPhase
+    public void firstTest() {
+        int phase = 1;
+        LocalDateTime time = LocalDateTime.now();
+        Log lg = new Log(phase,time,time, "Classtext", "Testtext", "Compilemessage");
+        Assert.assertTrue(lg.getPhase() == phase);
+    }
+
+    @Test //getClasstext
+    public void secoundTest() {
+        int phase = 1;
+        LocalDateTime time = LocalDateTime.now();
+        Log lg = new Log(phase,time,time, "Classtext", "Testtext", "Compilemessage");
+        Assert.assertTrue(lg.getClassText().equals("Classtext"));
+    }
+
+    @Test //getTesttext
+    public void thirdTest() {
+        int phase = 1;
+        LocalDateTime time = LocalDateTime.now();
+        Log lg = new Log(phase,time,time, "Classtext", "Testtext", "Compilemessage");
+        Assert.assertTrue(lg.getTestText().equals("Testtext"));
+    }
+
+
+
+
+
 }
