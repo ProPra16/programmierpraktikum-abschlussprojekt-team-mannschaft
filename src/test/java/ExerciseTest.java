@@ -27,4 +27,31 @@ public class ExerciseTest {
 
         Exercise.createExercise(title, description, file);
     }
+
+    @Test //Title
+    public void exTestOne(){
+        String title = "Titel";
+        String description = "Description";
+        Exercise ex = new Exercise(title,description);
+        Assert.assertTrue(ex.getTitle().equals(title));
+
+    }
+
+    @Test //description
+    public void exTestTwo(){
+        String title = "Titel";
+        String description = "Description";
+        Exercise ex = new Exercise(title,description);
+        Assert.assertTrue(ex.getDescription().equals(description));
+
+    }
+
+
+
+
+
+
+
+
+
 }

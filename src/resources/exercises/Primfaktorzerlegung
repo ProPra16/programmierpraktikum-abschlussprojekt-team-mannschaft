@@ -1,9 +1,9 @@
-<?xml version=1.0" encoding="UTF-8" standalone="yes"?><exrcise><title>Fakultät</title><description>Schreiben Sie eine Funktion, welche von einem vom Benutzer eingegebenen Parameter die Primfaktorzerlegung berechnet.
+<?xml version=1.0" encoding="UTF-8" standalone="yes"?><exrcise><title>Fakultät</title><description>Schreiben Sie eine Funktion, welche von einem Übergabeparameter die Primfaktorzerlegung berechnet.
 Der Parameter soll ein integer Wert sein.
-Die Ausgabe soll ein String von der Eingabe und dem Ergebnis sein.
-Wenn die Berechnung nicht möglich ist soll der String "ERROR" ausgegeben werden.
-Beispiel: Eingabe: 30   Ausgabe: 30 = 2*3*5
-          Eingabe: 6936 Ausgabe: 6936 = 2*2*2*3*17*17
+Der Rückgabewert soll ein String von dem Parameter und dem Ergebnis sein.
+Wenn die Berechnung nicht möglich ist soll der String "ERROR" zurückgegeben werden.
+Beispiel: Übergabeparameter: 30   Rückgabewert: 30 = 2*3*5
+          Übergabeparameter: 6936 Rückgabewert: 6936 = 2*2*2*3*17*17
 (Hinweis: Die kleinste Primzahl ist die 2)</description><classtext>public class Primfaktorzerlegung{
 
 
