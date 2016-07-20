@@ -6,8 +6,4 @@ addons:
     packages:
       - oracle-java8-installer
 
-install: /bin/true
-script:
-- echo "TDDT Build"
-- gradle build
-- echo "Done"
+script: gradle check --debug
