@@ -35,7 +35,7 @@ public class TimerTest{
         Assert.assertTrue(timer.stop().getMinute() == ldt.getMinute());
     }
 
-    @Test //test wird etwas zurück gegeben?
+    @Test //test wird etwas zurueck gegeben?
     public void secondTest() {
         Label time = new Label();
         Coordinator c = new Coordinator("","");
