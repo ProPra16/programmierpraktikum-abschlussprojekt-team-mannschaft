@@ -5,6 +5,11 @@ addons:
 apt:
 packages:
 - oracle-java8-installer
+addons:
+apt:
+packages:
+-oracle-java8-installer
+
 install: /bin/true
 script:
 - echo "TDDT Build"
